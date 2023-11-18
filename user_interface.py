@@ -25,8 +25,8 @@ for row in range(rows):
     for column in range(columns):
         root.grid_columnconfigure(column, weight=1)
         # add x to cell
-        x = tk.Label(root, bg="lightblue", text="x")
-        x.grid(row=row, column=column, sticky="nsew", padx=1, pady=1)
+        cell = tk.Frame(root, bg="lightblue")
+        cell.grid(row=row, column=column, sticky="nsew", padx=1, pady=1)
 
 
 # widgets
