@@ -5,6 +5,7 @@ Matthew Yoon
 A01373290
 """
 
+
 def validate_move(board, character, user_input):
     """
     validate if diredtion inputed is a valid move for character on board
@@ -45,7 +46,6 @@ def validate_move(board, character, user_input):
             if character['Y-coordinate'] == max(board.keys())[0]:
                 return False
     return True
-
 
 
 def main():
