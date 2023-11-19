@@ -10,22 +10,29 @@ from PIL import Image, ImageTk
 from get_user_interface_data import get_user_interface_data
 
 # Sample data for testing GUI
-some_coordinates = get_user_interface_data(
-            {"X-coordinate": 1, "Y-coordinate": 3, "Current HP": 5},
-            (4, 0),
-            [(3, 3), (2, 1), (1, 1), (4, 0)]
-        )
+# some_user_interface_data = get_user_interface_data(
+#             {"X-coordinate": 1, "Y-coordinate": 3, "Current HP": 5},
+#             (4, 0),
+#             [(3, 3), (2, 1), (1, 1), (4, 0)]
+#         )
 
-number_of_rows = 10
-number_of_columns = 10
+# number_of_rows = 10
+# number_of_columns = 10
+#
+# GUI_HEIGHT = 600
+# GUI_WIDTH = 1000
+# CELL_SIZE = 50
 
-GUI_HEIGHT = 600
-GUI_WIDTH = 1000
-CELL_SIZE = 50
 
-def user_interface(rows, columns, coordinates):
+# def user_interface(root, rows, columns, user_interface_data):
+def user_interface(root, rows, columns, user_interface_data):
+    # GUI sizing
+    GUI_HEIGHT = 600
+    GUI_WIDTH = 1000
+    CELL_SIZE = 50
+
     # Configure the root window
-    root = tk.Tk()
+    # root = tk.Tk()
     root.title("RPS Ninja")
     root.geometry(f"{GUI_WIDTH}x{GUI_HEIGHT}")
     root.configure(background='black')
@@ -49,23 +56,24 @@ def user_interface(rows, columns, coordinates):
             frame.grid(row=row, column=column, sticky="nsew", padx=2, pady=2)
 
     # Images
-    ninja_image_file = Image.open("assets/ninja.png")
+    global level_one_image
+    global ninja_image
+    ninja_image_file = Image.open("./assets/ninja.png")
     ninja_image = ImageTk.PhotoImage(ninja_image_file.resize((30, 30)))
-    level_one_image_file = Image.open("assets/forest_level_background.jpeg")
+    level_one_image_file = Image.open("./assets/forest_level_background.jpeg")
     level_one_image = ImageTk.PhotoImage(level_one_image_file.resize((2000, 2000)))
 
     # Game data widgets
     character = tk.Label(canvas, image=ninja_image, background="white")
-    character.grid(row=coordinates["character"][1], column=coordinates["character"][0])
-
+    character.grid(row=user_interface_data["character"][1], column=user_interface_data["character"][0])
 
     # Add background image to canvas
     canvas.create_image(0, 0, image=level_one_image)
 
-    root.mainloop()
+    # root.mainloop()
 
 
-user_interface(number_of_rows, number_of_columns, some_coordinates)
+# user_interface(number_of_rows, number_of_columns, user_interface_data)
 
 
 def main():

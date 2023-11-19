@@ -27,6 +27,7 @@ def move_character(character, direction):
         character["X-coordinate"] -= 1
 
 
+
 def main():
     pass
 
