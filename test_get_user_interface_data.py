@@ -41,4 +41,3 @@ class TestGetUserInterfaceData(TestCase):
             [(3, 3), (2, 1), (1, 1), (4, 0)]
         )
         self.assertEqual(actual, expected)
-        
