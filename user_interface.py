@@ -11,7 +11,7 @@ from get_user_interface_data import get_user_interface_data
 
 # Sample data for testing GUI
 some_coordinates = get_user_interface_data(
-            {"X-coordinate": 0, "Y-coordinate": 3, "Current HP": 5},
+            {"X-coordinate": 1, "Y-coordinate": 3, "Current HP": 5},
             (4, 0),
             [(3, 3), (2, 1), (1, 1), (4, 0)]
         )
