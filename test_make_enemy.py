@@ -14,7 +14,7 @@ from make_enemy import make_enemy
 
 class Test(TestCase):
 
-    @patch('random.choice', side_effect=[(0, 0), (1, 0)])
+    @patch('random.choice', side_effect=[(0, 1), (1, 0)])
     def test_make_enemy_not_in_starting_coordinate(self, _):
         board1 = {(0, 0): 'Empty room', (0, 1): 'Empty room', (1, 0): 'Empty room', (1, 1): 'Empty room'}
         expected = [(0, 1), (1, 0)]
