@@ -10,10 +10,13 @@ import random
 def make_enemy(game_board):
     """
     create a list of enemy locations
+
     :param game_board: dictionary made from make_board function representing play area
     :precondition: board is dictionary with keys being tuples representing location on board
     :postcondition: creates the correct amount of enemy randomly assigning a coordinate tuple
-                    there are no duplicate coordinates
+                    there are no duplicate coordinates in the array
+                    no enemy will be created in starting coordinate
+
     :return: list of tuples representing enemy coordinates
 
 
