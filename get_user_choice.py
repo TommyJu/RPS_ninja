@@ -33,7 +33,7 @@ def get_user_choice():
         user_input = user_input.strip()
         if user_input.lower() in acceptable_inputs:
             for direction in equivalent_inputs:
-                if user_input in direction:
+                if user_input.lower() in direction:
                     return direction[0]
         else:
             print("\nPlease enter a valid direction.\n"
