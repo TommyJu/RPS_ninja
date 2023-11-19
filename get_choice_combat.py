@@ -20,7 +20,7 @@ def get_choice_combat():
                          ["paper", "p", "2"],
                          ["scissor", "s", "3"]]
     while True:
-        attack_input = input("Where do you wish to go?\n"
+        attack_input = input("Choose you weapon?\n"
                              "1. (R)ock\n"
                              "2. (P)aper\n"
                              "3. (S)cissor")
