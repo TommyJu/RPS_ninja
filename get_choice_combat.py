@@ -27,7 +27,7 @@ def get_choice_combat():
         attack_input = attack_input.strip()
         if attack_input.lower() in valid_input:
             for attack_choice in equivalent_inputs:
-                if attack_input in attack_choice:
+                if attack_input.lower() in attack_choice:
                     return attack_choice[0]
         else:
             print("\nPlease enter a valid attack choice.\n"
