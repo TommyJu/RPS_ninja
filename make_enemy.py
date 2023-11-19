@@ -26,9 +26,8 @@ def make_enemy(game_board):
     # remove starting coordinate
     list_of_coordinates.remove((0, 0))
     enemy_count = 0
-    minimum_enemy_amount = (len(game_board.keys()) // 2)
     enemy_coordinates = []
-    while enemy_count < minimum_enemy_amount:
+    while enemy_count < (len(game_board.keys()) // 2):
         random_coordinate = random.choice(list_of_coordinates)
         enemy_coordinates.append(random_coordinate)
         list_of_coordinates.remove(random_coordinate)
