@@ -30,7 +30,7 @@ def get_user_choice():
                            "2. (S)outh\n"
                            "3. (E)ast\n"
                            "4. (W)est\n")
-
+        user_input = user_input.strip()
         if user_input.lower() in acceptable_inputs:
             for direction in equivalent_inputs:
                 if user_input in direction:
