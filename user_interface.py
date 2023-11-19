@@ -6,35 +6,66 @@ Matthew
 A01373290
 """
 import tkinter as tk
+from PIL import Image, ImageTk
+from get_user_interface_data import get_user_interface_data
 
-rows = 10
-columns = 10
+# Sample data for testing GUI
+some_coordinates = get_user_interface_data(
+            {"X-coordinate": 0, "Y-coordinate": 3, "Current HP": 5},
+            (4, 0),
+            [(3, 3), (2, 1), (1, 1), (4, 0)]
+        )
 
-# root window
-root = tk.Tk()
-root.title("RPS Ninja")
-root.geometry("600x600")
-root.configure(background='black')
-# root.columnconfigure(rows)
-# root.rowconfigure(rows)
+number_of_rows = 10
+number_of_columns = 10
+
+GUI_HEIGHT = 600
+GUI_WIDTH = 1000
+CELL_SIZE = 50
+
+def user_interface(rows, columns, coordinates):
+    # Configure the root window
+    root = tk.Tk()
+    root.title("RPS Ninja")
+    root.geometry(f"{GUI_WIDTH}x{GUI_HEIGHT}")
+    root.configure(background='black')
+    # Root window comprised of 2 vertical columns for map and information
+    root.grid_rowconfigure(0, weight=1)
+    root.grid_columnconfigure(0, weight=1)
+    root.grid_columnconfigure(1, weight=2)
+
+    canvas = tk.Canvas(root)
+    canvas.grid(row=0, column=0, sticky="nsew")
+
+    # Configure a grid and add data to cells
+    for row in range(rows):
+        # Configure even rows
+        canvas.grid_rowconfigure(row, minsize=CELL_SIZE)
+        for column in range(columns):
+            # Configure even columns
+            canvas.grid_columnconfigure(column, minsize=CELL_SIZE)
+            # Add the frame container widget to each cell to create border effect
+            frame = tk.Frame(canvas, background="green", borderwidth=3, relief="raised")
+            frame.grid(row=row, column=column, sticky="nsew", padx=2, pady=2)
+
+    # Images
+    ninja_image_file = Image.open("assets/ninja.png")
+    ninja_image = ImageTk.PhotoImage(ninja_image_file.resize((30, 30)))
+    level_one_image_file = Image.open("assets/forest_level_background.jpeg")
+    level_one_image = ImageTk.PhotoImage(level_one_image_file.resize((2000, 2000)))
+
+    # Game data widgets
+    character = tk.Label(canvas, image=ninja_image, background="white")
+    character.grid(row=coordinates["character"][1], column=coordinates["character"][0])
 
 
+    # Add background image to canvas
+    canvas.create_image(0, 0, image=level_one_image)
 
-for row in range(rows):
-    root.grid_rowconfigure(row, weight=1)
-    for column in range(columns):
-        root.grid_columnconfigure(column, weight=1)
-        # add x to cell
-        cell = tk.Frame(root, bg="lightblue")
-        cell.grid(row=row, column=column, sticky="nsew", padx=1, pady=1)
+    root.mainloop()
 
 
-# widgets
-
-# x = tk.Label(root, text="x", bg="purple").grid(row=0, column=0)
-# y = tk.Label(root, text="y", bg="purple").grid(row=0, column=1)
-
-root.mainloop()
+user_interface(number_of_rows, number_of_columns, some_coordinates)
 
 
 def main():
