@@ -15,7 +15,7 @@ def get_choice_combat():
                    print input prompt if valid input is not given
     :return: string representing rock, paper, or scissor
     """
-    valid_input = ['1', '2', '3', '4', 'rock', 'paper', 'scissor', 'r', 'p', 's']
+    valid_input = ['1', '2', '3', 'rock', 'paper', 'scissor', 'r', 'p', 's']
     equivalent_inputs = [["rock", "r", "1"],
                          ["paper", "p", "2"],
                          ["scissor", "s", "3"]]
@@ -23,10 +23,11 @@ def get_choice_combat():
         attack_input = input("Choose you weapon?\n"
                              "1. (R)ock\n"
                              "2. (P)aper\n"
-                             "3. (S)cissor")
-        if attack_input in valid_input:
+                             "3. (S)cissor\n")
+        attack_input = attack_input.strip()
+        if attack_input.lower() in valid_input:
             for attack_choice in equivalent_inputs:
-                if attack_input in equivalent_inputs:
+                if attack_input in attack_choice:
                     return attack_choice[0]
         else:
             print("\nPlease enter a valid attack choice.\n"
