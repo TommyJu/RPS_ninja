@@ -16,7 +16,7 @@ def engage_combat(character, game_board, enemy_coordinates):
     victory = False
     while victory:
         print("You have:" + character["Current HP"] + "HP")
-        player_action = (get_choice_combat(), random.randint(0, 10 + ))
+        player_action = (get_choice_combat(), random.randint(0, 10 + character["Attack Level"]))
         enemy_action = random_enemy_action()
         if does_player_win(player_action, enemy_action):
             victory = True
@@ -27,7 +27,7 @@ def engage_combat(character, game_board, enemy_coordinates):
 
 
 def main():
-    pass
+   pass
 
 
 if __name__ == "__main__":
