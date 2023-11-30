@@ -24,7 +24,7 @@ from get_user_interface_data import get_user_interface_data
 # CELL_SIZE = 50
 
 
-# def user_interface(root, rows, columns, user_interface_data):
+# This function configures the root
 def user_interface(root, rows, columns, user_interface_data):
     # GUI sizing
     GUI_HEIGHT = 600
