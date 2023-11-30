@@ -6,7 +6,6 @@ A01373290
 """
 
 
-
 def does_player_win(player_action, enemy_action):
     """
 
@@ -24,6 +23,7 @@ def does_player_win(player_action, enemy_action):
             return True
         case 'player lose':
             return False
+
 
 def main():
     pass
