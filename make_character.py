@@ -14,9 +14,9 @@ def make_character():
     :postcondition: creates a dictionary with two key value pairs for coordinates and one for health
     :return: a dictionary representing the game character
     >>> make_character()
-    {'X-coordinate': 0, 'Y-coordinate': 0, 'Current HP': 5}
+    {'X-coordinate': 0, 'Y-coordinate': 0, 'Current HP': 5, "Attack Level": 0}
     """
-    return {"X-coordinate": 0, "Y-coordinate": 0, "Current HP": 5}
+    return {"X-coordinate": 0, "Y-coordinate": 0, "Current HP": 5, "Attack Level": 0}
 
 
 def main():

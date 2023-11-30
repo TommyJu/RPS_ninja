@@ -17,10 +17,16 @@ def does_player_win(player_action, enemy_action):
     choices = {'rock': 0, 'paper': 1, 'scissor': 2}
     result = choices[player_action] - choices[enemy_action[0]]
     winner = ['draw', 'you win', 'you lose']
-    return winner[result]
+    match winner[result]:
+        case 'draw':
+            return
+        case 'player win':
+            return True
+        case 'player lose':
+            return False
 
 def main():
-    pass
+    does_player_win(player, computer)
 
 
 if __name__ == "__main__":
