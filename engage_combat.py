@@ -21,7 +21,11 @@ def engage_combat(character, game_board, enemy_coordinates):
         if does_player_win(player_action, enemy_action):
             victory = True
         else:
-            character["Current HP"] -= ()
+            if (enemy_action[1] - player_action[1]) > 0:
+                character["Current HP"] -= (enemy_action[1] - player_action[1])
+            else:
+                character["Current HP"] -= 1
+    enemy_coordinates.remove()
 
 
 

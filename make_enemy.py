@@ -29,7 +29,7 @@ def make_enemy(game_board):
     enemy_coordinates = []
     while enemy_count < (len(game_board.keys()) // 2):
         random_coordinate = random.choice(list_of_coordinates)
-        enemy_coordinates.append(random_coordinate)
+        enemy_coordinates.append([random_coordinate[0], random_coordinate[1]])
         list_of_coordinates.remove(random_coordinate)
         enemy_count += 1
 
