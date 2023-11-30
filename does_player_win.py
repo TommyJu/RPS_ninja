@@ -19,7 +19,7 @@ def does_player_win(player_action, enemy_action):
     winner = ['draw', 'player win', 'player lose']
     match winner[result]:
         case 'draw':
-            return 'draw'
+            return player_action[1] >= enemy_action[1]
         case 'player win':
             return True
         case 'player lose':
