@@ -61,13 +61,10 @@ def game():
             frame.grid(row=row, column=column, sticky="nsew", padx=2, pady=2)
 
     # Images
-    global level_one_image
-    global ninja_image
     ninja_image_file = Image.open("./assets/ninja.png")
     ninja_image = ImageTk.PhotoImage(ninja_image_file.resize((30, 30)))
     level_one_image_file = Image.open("./assets/forest_level_background.jpeg")
     level_one_image = ImageTk.PhotoImage(level_one_image_file.resize((2000, 2000)))
-
 
     # Character widgets
     ninja = tk.Label(canvas, image=ninja_image, background="white")
@@ -77,27 +74,26 @@ def game():
 
     # Add background image to canvas
     canvas.create_image(0, 0, image=level_one_image)
-
-
-
-    # data = get_user_interface_data(character, end_point, [(2, 2), (1, 1)])
-    # user_interface(root, rows, columns, data)
-    threading.Thread(target=game_instance, args=(root, character, achieved_goal, board, end_point, rows, columns, all_character_widgets)).start()
+    # Create a separate thread for the game loop
+    threading.Thread(target=game_instance, args=(character, achieved_goal, board, end_point, all_character_widgets, canvas, level_one_image)).start()
     root.mainloop()
 
 
-def game_instance(root, character, achieved_goal, board, end_point, rows, columns, all_character_widgets):
+def game_instance(character, achieved_goal, board, end_point, all_character_widgets, canvas, level_one_image):
     while achieved_goal:
         direction = get_user_choice()
         move_character(character, direction)
         describe_current_location(board, character)
         data = get_user_interface_data(character, end_point, [(2, 2), (1, 1)])
-        update_widgets(all_character_widgets, data)
-        # user_interface(root, rows, columns, data)
+        update_widgets(all_character_widgets, data, canvas, level_one_image)
 
 
-def update_widgets(all_character_widgets, user_interface_data):
+def update_widgets(all_character_widgets, user_interface_data, canvas, level_one_image):
+    canvas.delete("all")
+    canvas.create_image(0, 0, image=level_one_image)
     all_character_widgets[0].grid(row=user_interface_data["character"][1], column=user_interface_data["character"][0])
+
+
 def main():
     game()
 
