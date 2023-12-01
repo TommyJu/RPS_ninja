@@ -17,7 +17,7 @@ def make_enemy(game_board):
                     there are no duplicate coordinates in the array
                     no enemy will be created in starting coordinate
 
-    :return: list of tuples representing enemy coordinates
+    :return: list of lists representing enemy coordinates
 
 
     """

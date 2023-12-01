@@ -25,7 +25,7 @@ def engage_combat(character, game_board, enemy_coordinates):
                 character["Current HP"] -= (enemy_action[1] - player_action[1])
             else:
                 character["Current HP"] -= 1
-    enemy_coordinates.remove()
+    enemy_coordinates.remove([character["X-coordinate"], character["Y-coordinate"]])
 
 
 
