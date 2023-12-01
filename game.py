@@ -16,6 +16,8 @@ from PIL import Image, ImageTk
 from get_user_interface_data import get_user_interface_data
 from user_interface import user_interface
 from make_enemy import make_enemy
+from enemies_move import enemies_move
+from make_vision_cone import make_vision_cone
 import threading
 
 
@@ -31,6 +33,7 @@ def game():
     board = make_board(rows, columns)
     character = make_character()
     enemies = make_enemy(board)
+    vision_cones = make_vision_cone(enemies)
     achieved_goal = True
     # GUI
 
@@ -85,14 +88,15 @@ def game():
     # Add background image to canvas
     canvas.create_image(0, 0, image=level_one_image)
     # Create a separate thread for the game loop
-    threading.Thread(target=game_instance, args=(character, achieved_goal, board, end_point, canvas, level_one_image, enemies, all_game_widgets)).start()
+    threading.Thread(target=game_instance, args=(character, achieved_goal, board, end_point, canvas, level_one_image, enemies, all_game_widgets, vision_cones)).start()
     root.mainloop()
 
 
-def game_instance(character, achieved_goal, board, end_point, canvas, level_one_image, enemies, all_game_widgets):
+def game_instance(character, achieved_goal, board, end_point, canvas, level_one_image, enemies, all_game_widgets, vision_cones):
     while achieved_goal:
         direction = get_user_choice()
         move_character(character, direction)
+        enemies_move(enemies, vision_cones, board)
         describe_current_location(board, character)
         data = get_user_interface_data(character, end_point, [(2, 2), (1, 1)])
         update_widgets(data, canvas, level_one_image, enemies, all_game_widgets)
