@@ -15,6 +15,7 @@ import tkinter as tk
 from PIL import Image, ImageTk
 from get_user_interface_data import get_user_interface_data
 from user_interface import user_interface
+from make_enemy import make_enemy
 import threading
 
 
@@ -29,6 +30,7 @@ def game():
     end_point = (4, 4)
     board = make_board(rows, columns)
     character = make_character()
+    enemies = make_enemy(board)
     achieved_goal = True
     # GUI
 
@@ -61,37 +63,46 @@ def game():
             frame.grid(row=row, column=column, sticky="nsew", padx=2, pady=2)
 
     # Images
+    global ninja_image
     ninja_image_file = Image.open("./assets/ninja.png")
     ninja_image = ImageTk.PhotoImage(ninja_image_file.resize((30, 30)))
     level_one_image_file = Image.open("./assets/forest_level_background.jpeg")
     level_one_image = ImageTk.PhotoImage(level_one_image_file.resize((2000, 2000)))
 
-    # Character widgets
-    ninja = tk.Label(canvas, image=ninja_image, background="white")
-    all_character_widgets = [ninja]
+    #widgets
+    all_game_widgets = []
+    ninja_widget = tk.Label(canvas, image=ninja_image, background="white")
+    all_game_widgets.append(ninja_widget)
+    for index in range(len(enemies)):
+        enemy_widget = tk.Label(canvas, image=ninja_image, background="white")
+        all_game_widgets.append(enemy_widget)
+
+    # Initial game board update
     data = get_user_interface_data(character, end_point, [(2, 2), (1, 1)])
-    all_character_widgets[0].grid(row=data["character"][1], column=data["character"][0])
+    update_widgets(data, canvas, level_one_image, enemies, all_game_widgets)
+
 
     # Add background image to canvas
     canvas.create_image(0, 0, image=level_one_image)
     # Create a separate thread for the game loop
-    threading.Thread(target=game_instance, args=(character, achieved_goal, board, end_point, all_character_widgets, canvas, level_one_image)).start()
+    threading.Thread(target=game_instance, args=(character, achieved_goal, board, end_point, canvas, level_one_image, enemies, all_game_widgets)).start()
     root.mainloop()
 
 
-def game_instance(character, achieved_goal, board, end_point, all_character_widgets, canvas, level_one_image):
+def game_instance(character, achieved_goal, board, end_point, canvas, level_one_image, enemies, all_game_widgets):
     while achieved_goal:
         direction = get_user_choice()
         move_character(character, direction)
         describe_current_location(board, character)
         data = get_user_interface_data(character, end_point, [(2, 2), (1, 1)])
-        update_widgets(all_character_widgets, data, canvas, level_one_image)
+        update_widgets(data, canvas, level_one_image, enemies, all_game_widgets)
 
 
-def update_widgets(all_character_widgets, user_interface_data, canvas, level_one_image):
-    canvas.delete("all")
+def update_widgets(user_interface_data, canvas, level_one_image, enemies, all_game_widgets):
     canvas.create_image(0, 0, image=level_one_image)
-    all_character_widgets[0].grid(row=user_interface_data["character"][1], column=user_interface_data["character"][0])
+    all_game_widgets[0].grid(row=user_interface_data["character"][1], column=user_interface_data["character"][0])
+    for index in range(len(enemies)):
+        all_game_widgets[index + 1].grid(row=enemies[index][1], column=enemies[index][0])
 
 
 def main():
