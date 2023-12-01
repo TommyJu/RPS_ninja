@@ -9,7 +9,7 @@ from make_character import make_character
 class TestMakeCharacter(TestCase):
     def test_make_character(self):
         actual = make_character()
-        expected = {"X-coordinate": 0, "Y-coordinate": 0, "Current HP": 5}
+        expected = {"X-coordinate": 0, "Y-coordinate": 0, "Current HP": 5, "Attack Level": 0}
         self.assertEqual(actual, expected)
 
 
