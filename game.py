@@ -67,8 +67,10 @@ def game():
 
     # Images
     global ninja_image
-    ninja_image_file = Image.open("./assets/ninja.png")
+    ninja_image_file = Image.open("./assets/ninja-heroic-stance.png")
     ninja_image = ImageTk.PhotoImage(ninja_image_file.resize((30, 30)))
+    enemy_image_file = Image.open("./assets/oni.png")
+    enemy_image = ImageTk.PhotoImage(enemy_image_file.resize((30, 30)))
     level_one_image_file = Image.open("./assets/forest_level_background.jpeg")
     level_one_image = ImageTk.PhotoImage(level_one_image_file.resize((2000, 2000)))
 
@@ -77,7 +79,7 @@ def game():
     ninja_widget = tk.Label(canvas, image=ninja_image, background="white")
     all_game_widgets.append(ninja_widget)
     for index in range(len(enemies)):
-        enemy_widget = tk.Label(canvas, image=ninja_image, background="white")
+        enemy_widget = tk.Label(canvas, image=enemy_image, background="white")
         all_game_widgets.append(enemy_widget)
 
     # Initial game board update
