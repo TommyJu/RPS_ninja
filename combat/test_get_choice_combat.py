@@ -1,14 +1,15 @@
 """
-ADD DOCSTRING
+Tommy Ju
+A01347715
+Matthew Yoon
+A01373290
 """
 from unittest import TestCase
 from unittest.mock import patch
 from combat.get_choice_combat import get_choice_combat
 
 
-
 class Test(TestCase):
-
 
     @patch('builtins.input', side_effect=['1'])
     def test_get_choice_combat_correct_input_rock_using_number(self, _):
@@ -105,6 +106,7 @@ class Test(TestCase):
         expected = 'paper'
         actual = get_choice_combat()
         self.assertEqual(expected, actual)
+
     @patch('builtins.input', side_effect=['   rock  '])
     def test_get_choice_combat_striptest_correct_input_rock_using_word(self, _):
         expected = 'rock'
