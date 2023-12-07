@@ -34,9 +34,9 @@ def engage_combat(character: dict, enemy_coordinates: list, vision_cones: list, 
     while still_fighting and (character["Current HP"] > 0):
         print("You have:" + str(character["Current HP"]) + "HP")
         player_action = (get_choice_combat(), (random.randint(0, 10) + character["Attack Level"]))
-        print(player_action)
+        print("you used " + str(player_action[0]) + " with power " + str(player_action[1]))
         enemy_action = random_enemy_action()
-        print(enemy_action)
+        print("enemy used " + str(enemy_action[0]) + " with power " + str(enemy_action[1]))
         if does_player_win(player_action, enemy_action):
             print("you won")
             still_fighting = False
