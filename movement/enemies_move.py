@@ -5,7 +5,7 @@ Matthew Yoon
 A01373290
 """
 import random
-from validate_move_enemy import validate_move_enemy
+from movement.validate_move_enemy import validate_move_enemy
 
 
 def enemies_move(enemies, visions, board):
