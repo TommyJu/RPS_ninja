@@ -95,13 +95,14 @@ def game():
     def update_widgets(user_interface_data):
         canvas.create_image(0, 0, image=level_one_image)
         ninja_widget.grid(row=user_interface_data["character"][1], column=user_interface_data["character"][0])
-        for index in range(len(enemies)):
-            enemy_widgets[index].grid(row=enemies[index][1], column=enemies[index][0])
         for index in range(len(vision_cones)):
             if vision_cones[index] == None:
                 vision_cone_widgets[index].grid_forget()
             else:
                 vision_cone_widgets[index].grid(row=vision_cones[index][1], column=vision_cones[index][0])
+        for index in range(len(enemies)):
+            enemy_widgets[index].grid(row=enemies[index][1], column=enemies[index][0])
+            enemy_widgets[index].lift()
 
     update_widgets(data)
 
