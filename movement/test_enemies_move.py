@@ -5,8 +5,7 @@ Matthew Yoon
 A01373290
 """
 from unittest import TestCase
-from enemies_move import enemies_move
-import random
+from movement.enemies_move import enemies_move
 from unittest.mock import patch
 
 

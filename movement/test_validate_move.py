@@ -1,5 +1,5 @@
 from unittest import TestCase
-from validate_move import validate_move
+from movement.validate_move import validate_move
 
 
 class Test(TestCase):

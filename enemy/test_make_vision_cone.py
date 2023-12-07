@@ -2,7 +2,7 @@
 ADD DOCSTRING
 """
 from unittest import TestCase
-from make_vision_cone import make_vision_cone
+from enemy.make_vision_cone import make_vision_cone
 from unittest.mock import patch
 
 

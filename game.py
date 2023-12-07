@@ -14,10 +14,9 @@ from describe_current_location import describe_current_location
 import tkinter as tk
 from PIL import Image, ImageTk
 from get_user_interface_data import get_user_interface_data
-from user_interface import user_interface
 from make_enemy import make_enemy
-from enemies_move import enemies_move
-from make_vision_cone import make_vision_cone
+from movement.enemies_move import enemies_move
+from enemy.make_vision_cone import make_vision_cone
 import threading
 
 
