@@ -92,7 +92,7 @@ class Test(TestCase):
     @patch('random.choice', side_effect=['paper', 'paper'])
     @patch('random.randint', side_effect=[0, 1, 0, 1])
     @patch('builtins.input', side_effect=['paper', 'paper'])
-    def test_engage_combat_player_dies_multi_shot_not_draw(self, _, __, ___):
+    def test_engage_combat_player_dies_multi_shot_draw(self, _, __, ___):
         character = {"X-coordinate": 2, "Y-coordinate": 1, "Current HP": 2, "Attack Level": 0}
         enemies = [[2, 1], [0, 2], [1, 2]]
         vision_cones = [[1, 1], None, None]
@@ -104,3 +104,36 @@ class Test(TestCase):
         expected_hp = 0
         self.assertEqual(expected, actual)
         self.assertEqual(expected_hp, character["Current HP"])
+
+    @patch('random.choice', side_effect=['paper', 'paper'])
+    @patch('random.randint', side_effect=[0, 1, 1, 0])
+    @patch('builtins.input', side_effect=['paper', 'paper'])
+    def test_engage_combat_player_takes_dmg_but_wins(self, _, __, ___):
+        character = {"X-coordinate": 2, "Y-coordinate": 1, "Current HP": 2, "Attack Level": 0}
+        enemies = [[2, 1], [0, 2], [1, 2]]
+        vision_cones = [[1, 1], None, None]
+        index = 0
+        engage_combat(character, enemies, vision_cones, index)
+        print(character["Current HP"])
+        expected = ([[0, 2], [1, 2]], [None, None])
+        actual = (enemies, vision_cones)
+        expected_hp = 1
+        self.assertEqual(expected, actual)
+        self.assertEqual(expected_hp, character["Current HP"])
+
+    @patch('random.choice', side_effect=['paper', 'paper'])
+    @patch('random.randint', side_effect=[0, 3, 1, 0])
+    @patch('builtins.input', side_effect=['paper', 'paper'])
+    def test_engage_combat_player_takes_multi_dmg_but_wins(self, _, __, ___):
+        character = {"X-coordinate": 2, "Y-coordinate": 1, "Current HP": 4, "Attack Level": 0}
+        enemies = [[2, 1], [0, 2], [1, 2]]
+        vision_cones = [[1, 1], None, None]
+        index = 0
+        engage_combat(character, enemies, vision_cones, index)
+        print(character["Current HP"])
+        expected = ([[0, 2], [1, 2]], [None, None])
+        actual = (enemies, vision_cones)
+        expected_hp = 1
+        self.assertEqual(expected, actual)
+        self.assertEqual(expected_hp, character["Current HP"])
+

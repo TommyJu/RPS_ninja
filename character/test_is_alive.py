@@ -1,3 +1,9 @@
+"""
+Tommy Ju
+A01347715
+Matthew Yoon
+A01373290
+"""
 from unittest import TestCase
 from character.is_alive import is_alive
 
