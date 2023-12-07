@@ -28,7 +28,7 @@ def make_enemy(game_board):
     enemy_count = 0
     enemy_coordinates = []
     # set a limit on the number of enemies created
-    while enemy_count < (len(game_board.keys()) // 4):
+    while enemy_count < (len(game_board.keys()) // 8):
         random_coordinate = random.choice(list_of_coordinates)
         # convert coordinate tuple into a list representing enemy coordinate
         enemy_coordinates.append([random_coordinate[0], random_coordinate[1]])

@@ -22,14 +22,10 @@ from PIL import Image, ImageTk
 import threading
 
 
-
-
-
-
 def game():
     rows = 10
     columns = 10
-    end_point = (4, 4)
+    end_point = (9, 9)
     board = make_board(rows, columns)
     character = make_character()
     enemies = make_enemy(board)
@@ -66,7 +62,6 @@ def game():
             frame.grid(row=row, column=column, sticky="nsew", padx=2, pady=2)
 
     # Images
-    global ninja_image
     ninja_image_file = Image.open("./assets/ninja-heroic-stance.png")
     ninja_image = ImageTk.PhotoImage(ninja_image_file.resize((30, 30)))
     enemy_image_file = Image.open("./assets/oni.png")
@@ -79,41 +74,50 @@ def game():
     #widgets
     all_game_widgets = []
     ninja_widget = tk.Label(canvas, image=ninja_image, background="white")
-    all_game_widgets.append(ninja_widget)
+    enemy_widgets = []
+    vision_cone_widgets = []
+
+    # Create widgets
     for index in range(len(enemies)):
         enemy_widget = tk.Label(canvas, image=enemy_image, background="white")
-        all_game_widgets.append(enemy_widget)
-    # for index in range(len(vision_cones)):
-    #     vision_cone_widget = tk.Label(canvas, image=vision_cone_image, background="white")
-    #     all_game_widgets.append(vision_cone_widget)
+        enemy_widgets.append(enemy_widget)
+    for index in range(len(vision_cones)):
+        vision_cone_widget = tk.Label(canvas, image=vision_cone_image, background="white")
+        vision_cone_widgets.append(vision_cone_widget)
 
     # Initial game board update
     data = get_user_interface_data(character, end_point, [(2, 2), (1, 1)])
-    update_widgets(data, canvas, level_one_image, enemies, all_game_widgets)
-
-
     # Add background image to canvas
     canvas.create_image(0, 0, image=level_one_image)
+
+
+    def update_widgets(user_interface_data):
+        canvas.create_image(0, 0, image=level_one_image)
+        ninja_widget.grid(row=user_interface_data["character"][1], column=user_interface_data["character"][0])
+        for index in range(len(enemies)):
+            enemy_widgets[index].grid(row=enemies[index][1], column=enemies[index][0])
+        for index in range(len(vision_cones)):
+            if vision_cones[index] == None:
+                vision_cone_widgets[index].grid_forget()
+            else:
+                vision_cone_widgets[index].grid(row=vision_cones[index][1], column=vision_cones[index][0])
+
+    update_widgets(data)
+
+
+    def game_instance():
+        while achieved_goal:
+            direction = get_user_choice()
+            move_character(character, direction)
+            enemies_move(enemies, vision_cones, board)
+            describe_current_location(board, character)
+            instance_data = get_user_interface_data(character, end_point, [(2, 2), (1, 1)])
+            update_widgets(instance_data)
+
+
     # Create a separate thread for the game loop
-    threading.Thread(target=game_instance, args=(character, achieved_goal, board, end_point, canvas, level_one_image, enemies, all_game_widgets, vision_cones)).start()
+    threading.Thread(target=game_instance).start()
     root.mainloop()
-
-
-def game_instance(character, achieved_goal, board, end_point, canvas, level_one_image, enemies, all_game_widgets, vision_cones):
-    while achieved_goal:
-        direction = get_user_choice()
-        move_character(character, direction)
-        enemies_move(enemies, vision_cones, board)
-        describe_current_location(board, character)
-        data = get_user_interface_data(character, end_point, [(2, 2), (1, 1)])
-        update_widgets(data, canvas, level_one_image, enemies, all_game_widgets)
-
-
-def update_widgets(user_interface_data, canvas, level_one_image, enemies, all_game_widgets):
-    canvas.create_image(0, 0, image=level_one_image)
-    all_game_widgets[0].grid(row=user_interface_data["character"][1], column=user_interface_data["character"][0])
-    for index in range(len(enemies)):
-        all_game_widgets[index + 1].grid(row=enemies[index][1], column=enemies[index][0])
 
 
 def main():
