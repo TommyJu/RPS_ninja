@@ -27,15 +27,13 @@ def enemy_detection(character, enemies, vision_cones):
     if character_coordinate in enemies:
         enemy_index = enemies.index(character_coordinate)
         engage_combat(character, enemies, vision_cones, enemy_index)
-        tuple_true = (True, enemy_index)
-        return tuple_true
+        return
     elif character_coordinate in vision_cones:
         enemy_index = vision_cones.index(character_coordinate)
         engage_combat(character, enemies, vision_cones, enemy_index)
-        tuple_true = (True, enemy_index)
-        return tuple_true
+        return
     else:
-        return False
+        return
 
 
 def main():

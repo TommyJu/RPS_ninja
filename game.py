@@ -36,7 +36,7 @@ def game():
     board = make_board(rows, columns)
     character = make_character()
     enemies = make_enemy(board)
-    vision_cones = make_vision_cones(enemies)
+    vision_cones = make_vision_cones(enemies, board)
     achieved_goal = True
     # GUI
 
