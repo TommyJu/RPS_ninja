@@ -16,7 +16,7 @@ def make_character():
     >>> make_character()
     {'X-coordinate': 0, 'Y-coordinate': 0, 'Current HP': 5, "Attack Level": 0}
     """
-    return {"X-coordinate": 0, "Y-coordinate": 0, "Current HP": 5, "Attack Level": 0}
+    return {"X-coordinate": 0, "Y-coordinate": 0, "Current HP": 50, "Attack Level": 0}
 
 
 def main():
