@@ -25,9 +25,7 @@ def enemies_move(enemy_coordinates, visions, board):
     start_point = [0, 0]
     # convert each coordinate tuple into a list
     board_coordinates = [list(coordinate) for coordinate in board]
-    invalid_coordinates = enemy_coordinates.copy()
-    invalid_coordinates.append(start_point)
-    invalid_coordinates.append(end_point)
+    invalid_coordinates = [start_point, end_point]
 
     # Move each enemy and their vision cone
     for enemy_index in range(len(enemy_coordinates)):
@@ -38,16 +36,15 @@ def enemies_move(enemy_coordinates, visions, board):
             # determine the enemy movement direction by comparing with position before
             x_change = new_coordinate[0] - enemy_coordinates[enemy_index][0]
             y_change = new_coordinate[1] - enemy_coordinates[enemy_index][1]
+            # Update the enemy position
+            enemy_coordinates[enemy_index] = new_coordinate
             # Extend the vision cone using the new_coordinates and overwrite the existing if valid
-            new_vision_cone_position = [new_coordinate[0] + x_change, new_coordinate[1] + y_change]
+            new_vision_cone_position = [enemy_coordinates[enemy_index][0] + x_change, enemy_coordinates[enemy_index][1] + y_change]
             # Update vision cone
-            if new_vision_cone_position in board_coordinates and new_vision_cone_position not in invalid_coordinates:
+            if new_vision_cone_position in board_coordinates and new_vision_cone_position not in invalid_coordinates and new_vision_cone_position != enemy_coordinates[enemy_index]:
                 visions[enemy_index] = new_vision_cone_position
             else:
                 visions[enemy_index] = None
-
-            # Update the enemy position
-            enemy_coordinates[enemy_index] = new_coordinate
 
 
 def main():
