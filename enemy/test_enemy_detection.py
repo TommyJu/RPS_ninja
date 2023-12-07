@@ -45,3 +45,15 @@ class Test(TestCase):
         expected_lists = ([[0, 1], [0, 2], [0, 3]], [None, None, None])
         actual_lists = (enemies, vision_cones)
         self.assertEqual(expected_lists, actual_lists)
+
+    @patch('random.choice', side_effect=['rock', 'paper'])
+    @patch('random.randint', side_effect=[10, 0, 10, 0])
+    @patch('builtins.input', side_effect=['rock', 'paper'])
+    def test_enemy_detection_vision_cones_detects_recursion(self, _, __, ___):
+        enemies = [[2, 1], [5, 3], [3, 2]]
+        vision_cones = [[2, 2], [5, 2], [2, 2]]
+        character = {"X-coordinate": 2, "Y-coordinate": 2, "Current HP": 5, "Attack Level": 0}
+        enemy_detection(character, enemies, vision_cones)
+        expected_lists = ([[5, 3]], [[5, 2]])
+        actual_lists = (enemies, vision_cones)
+        self.assertEqual(expected_lists, actual_lists)

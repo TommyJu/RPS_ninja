@@ -1,6 +1,8 @@
 """
 Tommy Ju
 A01347715
+Matthew Yoon
+A01373290
 """
 from unittest import TestCase
 from character.make_character import make_character
@@ -12,10 +14,3 @@ class TestMakeCharacter(TestCase):
         expected = {"X-coordinate": 0, "Y-coordinate": 0, "Current HP": 5, "Attack Level": 0}
         self.assertEqual(actual, expected)
 
-
-def main():
-    pass
-
-
-if __name__ == "__main__":
-    main()

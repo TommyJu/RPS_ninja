@@ -47,7 +47,6 @@ def engage_combat(character: dict, enemy_coordinates: list, vision_cones: list, 
             else:
                 character["Current HP"] -= 1
     enemy_coordinates.pop(index)
-
     vision_cones.pop(index)
 
 

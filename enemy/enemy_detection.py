@@ -18,7 +18,7 @@ def enemy_detection(character, enemies, vision_cones):
                    character "Current HP" value is greater than 0 at beginning of engage combat
                    enemy_coordinates list of list representing the enemy current location
                    vision_cones list of lists representing the enemy detection or none if enemy is looking at location
-                   not on board
+                   not on board, vision cone will never overlap with enemy
     :postcondition: determines if character overlaps with a coordinate on either the enemies or vision cones list
                     if overlap occurs, index of enemy is found and initiates engage_combat function with index found
                     if no overlap no change occurs
@@ -31,7 +31,7 @@ def enemy_detection(character, enemies, vision_cones):
     elif character_coordinate in vision_cones:
         enemy_index = vision_cones.index(character_coordinate)
         engage_combat(character, enemies, vision_cones, enemy_index)
-        return
+        return enemy_detection(character, enemies, vision_cones)
     else:
         return
 
