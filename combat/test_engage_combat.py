@@ -19,7 +19,7 @@ class Test(TestCase):
         enemies = [[0, 1], [0, 2], [1, 2]]
         vision_cones = [[1, 1], None, [1, 3]]
         index = 0
-        engage_combat(character, enemies, vision_cones, index)
+        engage_combat(character, enemies, [], vision_cones, [], index)
         expected_lists = ([[0, 2], [1, 2]], [None, [1, 3]])
         actual_lists = (enemies, vision_cones)
         expected_hp = 5
@@ -34,7 +34,7 @@ class Test(TestCase):
         enemies = [[0, 2], [1, 2], [0, 1]]
         vision_cones = [None, [1, 3], [1, 1]]
         index = 2
-        engage_combat(character, enemies, vision_cones, index)
+        engage_combat(character, enemies, [], vision_cones, [], index)
         expected_lists = ([[0, 2], [1, 2]], [None, [1, 3]])
         actual_lists = (enemies, vision_cones)
         expected_hp = 4
@@ -49,7 +49,7 @@ class Test(TestCase):
         enemies = [[2, 1], [0, 2], [1, 2]]
         vision_cones = [[1, 1], None, None]
         index = 0
-        engage_combat(character, enemies, vision_cones, index)
+        engage_combat(character, enemies, [], vision_cones, [], index)
         print(character["Current HP"])
         expected = ([[0, 2], [1, 2]], [None, None])
         actual = (enemies, vision_cones)
@@ -65,7 +65,7 @@ class Test(TestCase):
         enemies = [[2, 1], [0, 2], [1, 2]]
         vision_cones = [[1, 1], None, None]
         index = 0
-        engage_combat(character, enemies, vision_cones, index)
+        engage_combat(character, enemies, [], vision_cones, [], index)
         print(character["Current HP"])
         expected = ([[0, 2], [1, 2]], [None, None])
         actual = (enemies, vision_cones)
@@ -81,7 +81,7 @@ class Test(TestCase):
         enemies = [[2, 1], [0, 2], [1, 2]]
         vision_cones = [[1, 1], None, None]
         index = 0
-        engage_combat(character, enemies, vision_cones, index)
+        engage_combat(character, enemies, [], vision_cones, [], index)
         print(character["Current HP"])
         expected = ([[0, 2], [1, 2]], [None, None])
         actual = (enemies, vision_cones)
@@ -97,7 +97,7 @@ class Test(TestCase):
         enemies = [[2, 1], [0, 2], [1, 2]]
         vision_cones = [[1, 1], None, None]
         index = 0
-        engage_combat(character, enemies, vision_cones, index)
+        engage_combat(character, enemies, [], vision_cones, [], index)
         print(character["Current HP"])
         expected = ([[0, 2], [1, 2]], [None, None])
         actual = (enemies, vision_cones)
@@ -113,7 +113,7 @@ class Test(TestCase):
         enemies = [[2, 1], [0, 2], [1, 2]]
         vision_cones = [[1, 1], None, None]
         index = 0
-        engage_combat(character, enemies, vision_cones, index)
+        engage_combat(character, enemies, [], vision_cones, [], index)
         print(character["Current HP"])
         expected = ([[0, 2], [1, 2]], [None, None])
         actual = (enemies, vision_cones)
@@ -129,11 +129,10 @@ class Test(TestCase):
         enemies = [[2, 1], [0, 2], [1, 2]]
         vision_cones = [[1, 1], None, None]
         index = 0
-        engage_combat(character, enemies, vision_cones, index)
+        engage_combat(character, enemies, [], vision_cones, [], index)
         print(character["Current HP"])
         expected = ([[0, 2], [1, 2]], [None, None])
         actual = (enemies, vision_cones)
         expected_hp = 1
         self.assertEqual(expected, actual)
         self.assertEqual(expected_hp, character["Current HP"])
-

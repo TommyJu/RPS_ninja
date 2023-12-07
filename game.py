@@ -16,6 +16,8 @@ from enemy.make_enemy import make_enemy
 from movement.enemies_move import enemies_move
 from enemy.make_vision_cones import make_vision_cones
 from enemy.enemy_detection import enemy_detection
+from enemy.delete_enemy import delete_enemy
+from combat.engage_combat import engage_combat
 from map.check_if_endpoint_reached import check_if_endpoint_reached
 from character.is_alive import is_alive
 
@@ -68,7 +70,7 @@ def game():
     ninja_image = ImageTk.PhotoImage(ninja_image_file.resize((30, 30)))
     enemy_image_file = Image.open("./assets/oni.png")
     enemy_image = ImageTk.PhotoImage(enemy_image_file.resize((30, 30)))
-    vision_cone_image_file = Image.open("./assets/lantern.png")
+    vision_cone_image_file = Image.open("./assets/eye-target.png")
     vision_cone_image = ImageTk.PhotoImage(vision_cone_image_file.resize((30, 30)))
     level_one_image_file = Image.open("./assets/forest_level_background.jpeg")
     level_one_image = ImageTk.PhotoImage(level_one_image_file.resize((2000, 2000)))
@@ -111,16 +113,18 @@ def game():
 
     def game_instance():
         while True:
-            # Move character
-            direction = get_user_choice(character, board)
-            move_character(character, direction)
             # Check if endpoint reached
             achieved_goal = check_if_endpoint_reached(character, board)
             character_still_alive = is_alive(character)
             if achieved_goal or not character_still_alive:
-                instance_data = get_user_interface_data(character, end_point, [(2, 2), (1, 1)])
-                update_widgets(instance_data)
+                # instance_data = get_user_interface_data(character, end_point, [(2, 2), (1, 1)])
+                # update_widgets(instance_data)
                 break
+            # Move character
+            direction = get_user_choice(character, board)
+            move_character(character, direction)
+
+
             # Move enemies and update GUI
             enemies_move(enemies, vision_cones, board)
             describe_current_location(board, character)
@@ -128,9 +132,15 @@ def game():
             update_widgets(instance_data)
 
             # Check for combat, then update GUI after combat
-            enemy_detection(character, enemies, vision_cones)
-            instance_data = get_user_interface_data(character, end_point, [(2, 2), (1, 1)])
-            update_widgets(instance_data)
+            enemy_detected_by_index = enemy_detection(character, enemies, vision_cones)
+            if enemy_detected_by_index != None:
+                is_combat_won = engage_combat(character)
+                if is_combat_won:
+                    delete_enemy(enemies, enemy_widgets, vision_cones, vision_cone_widgets, enemy_detected_by_index)
+                    instance_data = get_user_interface_data(character, end_point, [(2, 2), (1, 1)])
+                    update_widgets(instance_data)
+
+
         print("Game end")
 
 

@@ -17,7 +17,7 @@ class Test(TestCase):
         enemies = [[1, 1], [2, 3], [3, 3]]
         vision_cones = [[1, 2], [1, 3], None]
         character = {"X-coordinate": 2, "Y-coordinate": 3, "Current HP": 5, "Attack Level": 0}
-        enemy_detection(character, enemies, vision_cones)
+        enemy_detection(character, enemies, [], vision_cones, [])
         expected_lists = ([[1, 1], [3, 3]], [[1, 2], None])
         actual_lists = (enemies, vision_cones)
         self.assertEqual(expected_lists, actual_lists)
@@ -29,7 +29,7 @@ class Test(TestCase):
         enemies = [[0, 1], [5, 3], [3, 3]]
         vision_cones = [None, [5, 2], [3, 4]]
         character = {"X-coordinate": 3, "Y-coordinate": 4, "Current HP": 5, "Attack Level": 0}
-        enemy_detection(character, enemies, vision_cones)
+        enemy_detection(character, enemies, [], vision_cones, [])
         expected_lists = ([[0, 1], [5, 3]], [None, [5, 2]])
         actual_lists = (enemies, vision_cones)
         self.assertEqual(expected_lists, actual_lists)
@@ -41,7 +41,7 @@ class Test(TestCase):
         enemies = [[0, 1], [0, 2], [0, 3]]
         vision_cones = [None, None, None]
         character = {"X-coordinate": 1, "Y-coordinate": 2, "Current HP": 5, "Attack Level": 0}
-        enemy_detection(character, enemies, vision_cones)
+        enemy_detection(character, enemies, [], vision_cones, [])
         expected_lists = ([[0, 1], [0, 2], [0, 3]], [None, None, None])
         actual_lists = (enemies, vision_cones)
         self.assertEqual(expected_lists, actual_lists)
@@ -53,7 +53,7 @@ class Test(TestCase):
         enemies = [[2, 1], [5, 3], [3, 2]]
         vision_cones = [[2, 2], [5, 2], [2, 2]]
         character = {"X-coordinate": 2, "Y-coordinate": 2, "Current HP": 5, "Attack Level": 0}
-        enemy_detection(character, enemies, vision_cones)
+        enemy_detection(character, enemies, [], vision_cones, [])
         expected_lists = ([[5, 3]], [[5, 2]])
         actual_lists = (enemies, vision_cones)
         self.assertEqual(expected_lists, actual_lists)

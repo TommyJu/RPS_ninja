@@ -13,7 +13,9 @@ def enemy_detection(character, enemies, vision_cones):
 
     :param character: dictionary representing the user's character
     :param enemies: list of lists representing coordinates of enemies
+    :param enemy_widgets: a list of Tkinter labels for enemies
     :param vision_cones: list of lists or none representing coordinates of vision cones
+    :param vision_cone_widgets: a list of Tkinter labels for enemy vision cones
     :precondition: character is a dictionary with key "Current HP" with values being integer
                    character "Current HP" value is greater than 0 at beginning of engage combat
                    enemy_coordinates list of list representing the enemy current location
@@ -25,15 +27,11 @@ def enemy_detection(character, enemies, vision_cones):
     """
     character_coordinate = [character["X-coordinate"], character["Y-coordinate"]]
     if character_coordinate in enemies:
-        enemy_index = enemies.index(character_coordinate)
-        engage_combat(character, enemies, vision_cones, enemy_index)
-        return
+        return enemies.index(character_coordinate)
     elif character_coordinate in vision_cones:
-        enemy_index = vision_cones.index(character_coordinate)
-        engage_combat(character, enemies, vision_cones, enemy_index)
-        return enemy_detection(character, enemies, vision_cones)
+        return vision_cones.index(character_coordinate)
     else:
-        return
+        return None
 
 
 def main():
