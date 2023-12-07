@@ -24,7 +24,7 @@ def random_enemy_action():
 
 
 def main():
-    enemy_action()
+    pass
 
 
 if __name__ == "__main__":
