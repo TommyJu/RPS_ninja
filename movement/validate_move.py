@@ -8,7 +8,7 @@ A01373290
 
 def validate_move(board, character, user_input):
     """
-    validate if diredtion inputed is a valid move for character on board
+    validate if direction inputed is a valid move for character on board
 
     :param user_input: string
     :param board: dictionary representing play space

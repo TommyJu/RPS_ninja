@@ -18,12 +18,19 @@ def validate_move_enemy(enemy, board, enemies):
     :postcondition: correctly gives an enemy's valid coordinates
     :return: a list containing lists of each valid enemy coordinate
     """
+    end_point = list(max(board.keys()))
+    start_point = [0, 0]
+    # convert each coordinate tuple into a list
+    board_coordinates = [list(coordinate) for coordinate in board]
+    invalid_coordinates = enemies[:]
+    invalid_coordinates.append(start_point)
+    invalid_coordinates.append(end_point)
+
     possible_directions = [[enemy[0] - 1, enemy[1]], [enemy[0], enemy[1] + 1], [enemy[0] + 1, enemy[1]],
                           [enemy[0], enemy[1] - 1]]
     direction_choices = []
     for direction in possible_directions:
-        direction_as_tuple = (direction[0], direction[1])
-        if direction_as_tuple in board and [direction[0], direction[1]] not in enemies:
+        if direction in board_coordinates and direction not in invalid_coordinates:
             direction_choices.append(direction)
     return direction_choices
 

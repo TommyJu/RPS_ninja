@@ -22,3 +22,8 @@ class Test(TestCase):
         actual = enemies_move(enemies, visions, board)
         self.assertEqual(expected_enemies, enemies)
         self.assertEqual(expected_visions, visions)
+
+
+class TestEnemiesMove(TestCase):
+    def test_enemies_move(self):
+        self.fail()
