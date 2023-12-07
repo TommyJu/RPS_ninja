@@ -6,7 +6,7 @@ A01373290
 """
 from unittest import TestCase
 from unittest.mock import patch
-from engage_combat import engage_combat
+from combat.engage_combat import engage_combat
 
 
 class Test(TestCase):
