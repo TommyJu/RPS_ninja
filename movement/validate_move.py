@@ -36,16 +36,24 @@ def validate_move(board, character, user_input):
         case 'north':  # north
             if character['Y-coordinate'] == 0:
                 return False
+            else:
+                return True
         case 'east':  # east
-            if character['X-coordinate'] == max(board.keys())[1]:
+            if character['X-coordinate'] == max(board.keys())[0]:
                 return False
+            else:
+                return True
         case 'west':  # west
             if character['X-coordinate'] == 0:
                 return False
+            else:
+                return True
         case 'south':  # south
-            if character['Y-coordinate'] == max(board.keys())[0]:
+            if character['Y-coordinate'] == max(board.keys())[1]:
                 return False
-    return True
+            else:
+                return True
+
 
 
 def main():

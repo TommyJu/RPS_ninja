@@ -108,7 +108,7 @@ def game():
 
     def game_instance():
         while achieved_goal:
-            direction = get_user_choice()
+            direction = get_user_choice(character, board)
             move_character(character, direction)
             enemies_move(enemies, vision_cones, board)
             describe_current_location(board, character)

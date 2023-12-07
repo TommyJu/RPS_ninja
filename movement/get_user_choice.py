@@ -5,13 +5,17 @@ A01347715
 Matthew
 A01373290
 """
+from movement.validate_move import validate_move
 
 
-def get_user_choice():
+def get_user_choice(character, board):
     """
     Prompt the user to pick a direction
 
-    :precondition: a valid direction must be given eventually
+    :param board: dictionary representing play space
+    :param character: dictionary representing the player
+    :precondition: character must be a dictionary created by the make_character function
+                   a valid direction must be given eventually
     :postcondition: retrieves the desired move direction from the user
     :return: a string representing move direction ("north", "south", "east", or "west")
     """
@@ -34,7 +38,11 @@ def get_user_choice():
         if user_input.lower() in acceptable_inputs:
             for direction in equivalent_inputs:
                 if user_input.lower() in direction:
-                    return direction[0]
+                    if validate_move(board, character, direction[0]):
+                        return direction[0]
+                    else:
+                        print("move is not valid \n"
+                              "please keep movement on board")
         else:
             print("\nPlease enter a valid direction.\n"
                   "To move north: type 'north', 'n', or '1'")
