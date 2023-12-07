@@ -8,10 +8,13 @@ A01373290
 
 def validate_move_enemy(enemy, board, enemies):
     """
+    Give valid directions for an enemy's next move
 
-    :param enemy:
-    :param board:
-    :param enemies:
+    :param enemy: a dictionary representing the enemy
+    :param board: a dictionary representing the game board
+    :param enemies: a list representing all enemy coordinates
+    :precondition: board is a dictionary created by the make_board function
+    :precondition: enemies is a list of valid coordinates created by the make_enemy function
     :return:
     """
     possible_directions = [[enemy[0] - 1, enemy[1]], [enemy[0], enemy[1] + 1], [enemy[0] + 1, enemy[1]],
