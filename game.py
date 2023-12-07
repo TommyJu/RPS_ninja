@@ -74,12 +74,16 @@ def game():
     vision_cone_image = ImageTk.PhotoImage(vision_cone_image_file.resize((30, 30)))
     level_one_image_file = Image.open("./assets/forest_level_background.jpeg")
     level_one_image = ImageTk.PhotoImage(level_one_image_file.resize((2000, 2000)))
+    end_point_image_file = Image.open("./assets/exit-door.png")
+    end_point_image = ImageTk.PhotoImage(end_point_image_file.resize((30, 30)))
 
     #widgets
-    all_game_widgets = []
     ninja_widget = tk.Label(canvas, image=ninja_image, background="white")
     enemy_widgets = []
     vision_cone_widgets = []
+    end_point_widget = tk.Label(canvas, image=end_point_image, background="white")
+    end_point_widget.grid(row=end_point[0], column=end_point[1])
+
 
     # Create widgets
     for index in range(len(enemies)):
