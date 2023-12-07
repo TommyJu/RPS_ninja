@@ -7,7 +7,7 @@ A01373290
 """
 import tkinter as tk
 from PIL import Image, ImageTk
-from get_user_interface_data import get_user_interface_data
+
 
 # Sample data for testing GUI
 # some_user_interface_data = get_user_interface_data(

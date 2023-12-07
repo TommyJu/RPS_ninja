@@ -11,11 +11,13 @@ from map.make_board import make_board
 from movement.get_user_choice import get_user_choice
 from movement.move_character import move_character
 from map.describe_current_location import describe_current_location
-from Unused.get_user_interface_data import get_user_interface_data
+from map.get_user_interface_data import get_user_interface_data
 from enemy.make_enemy import make_enemy
 from movement.enemies_move import enemies_move
 from enemy.make_vision_cones import make_vision_cones
 from enemy.enemy_detection import enemy_detection
+from map.check_if_endpoint_reached import check_if_endpoint_reached
+from character.is_alive import is_alive
 
 # GUI Modules
 import tkinter as tk
@@ -31,7 +33,6 @@ def game():
     character = make_character()
     enemies = make_enemy(board)
     vision_cones = make_vision_cones(enemies, board)
-    achieved_goal = True
     # GUI
 
     GUI_HEIGHT = 600
@@ -109,13 +110,28 @@ def game():
 
 
     def game_instance():
-        while achieved_goal:
+        while True:
+            # Move character
             direction = get_user_choice(character, board)
             move_character(character, direction)
+            # Check if endpoint reached
+            achieved_goal = check_if_endpoint_reached(character, board)
+            character_still_alive = is_alive(character)
+            if achieved_goal or not character_still_alive:
+                instance_data = get_user_interface_data(character, end_point, [(2, 2), (1, 1)])
+                update_widgets(instance_data)
+                break
+            # Move enemies and update GUI
             enemies_move(enemies, vision_cones, board)
             describe_current_location(board, character)
             instance_data = get_user_interface_data(character, end_point, [(2, 2), (1, 1)])
             update_widgets(instance_data)
+
+            # Check for combat, then update GUI after combat
+            enemy_detection(character, enemies, vision_cones)
+            instance_data = get_user_interface_data(character, end_point, [(2, 2), (1, 1)])
+            update_widgets(instance_data)
+        print("Game end")
 
 
     # Create a separate thread for the game loop
