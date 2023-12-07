@@ -80,6 +80,7 @@ def game():
     # Create widgets
     for index in range(len(enemies)):
         enemy_widget = tk.Label(canvas, image=enemy_image, background="white")
+        enemy_widget.lift()
         enemy_widgets.append(enemy_widget)
     for index in range(len(vision_cones)):
         vision_cone_widget = tk.Label(canvas, image=vision_cone_image, background="white")
