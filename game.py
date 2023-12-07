@@ -5,16 +5,16 @@ A01347715
 Matthew
 A01373290
 """
-from make_character import make_character
-from make_board import make_board
-from get_user_choice import get_user_choice
-from move_character import move_character
-from describe_current_location import describe_current_location
+from character.make_character import make_character
+from map.make_board import make_board
+from movement.get_user_choice import get_user_choice
+from movement.move_character import move_character
+from map.describe_current_location import describe_current_location
 # GUI Modules
 import tkinter as tk
 from PIL import Image, ImageTk
-from get_user_interface_data import get_user_interface_data
-from make_enemy import make_enemy
+from Unused.get_user_interface_data import get_user_interface_data
+from enemy.make_enemy import make_enemy
 from movement.enemies_move import enemies_move
 from enemy.make_vision_cone import make_vision_cone
 import threading

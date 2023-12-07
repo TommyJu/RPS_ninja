@@ -3,7 +3,7 @@ ADD DOCSTRING
 """
 from unittest import TestCase
 from unittest.mock import patch
-from get_choice_combat import get_choice_combat
+from combat.get_choice_combat import get_choice_combat
 
 
 

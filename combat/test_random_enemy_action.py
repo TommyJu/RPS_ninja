@@ -6,7 +6,7 @@ A01373290
 """
 from unittest import TestCase
 from unittest.mock import patch
-from random_enemy_action import random_enemy_action
+from combat.random_enemy_action import random_enemy_action
 
 
 class Test(TestCase):

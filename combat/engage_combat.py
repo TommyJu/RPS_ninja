@@ -6,10 +6,10 @@ A01373290
 """
 import random
 
-from get_choice_combat import get_choice_combat
-from random_enemy_action import random_enemy_action
-from does_player_win import does_player_win
-from random import randint
+from combat.get_choice_combat import get_choice_combat
+from combat.random_enemy_action import random_enemy_action
+from combat.does_player_win import does_player_win
+
 
 def engage_combat(character, game_board, enemy_coordinates):
     print("an enemy approaches")

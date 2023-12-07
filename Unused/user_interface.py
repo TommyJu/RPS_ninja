@@ -58,9 +58,9 @@ def user_interface(root, rows, columns, user_interface_data):
     # Images
     global level_one_image
     global ninja_image
-    ninja_image_file = Image.open("./assets/ninja.png")
+    ninja_image_file = Image.open("../assets/ninja.png")
     ninja_image = ImageTk.PhotoImage(ninja_image_file.resize((30, 30)))
-    level_one_image_file = Image.open("./assets/forest_level_background.jpeg")
+    level_one_image_file = Image.open("../assets/forest_level_background.jpeg")
     level_one_image = ImageTk.PhotoImage(level_one_image_file.resize((2000, 2000)))
 
     # Game data widgets

@@ -6,7 +6,7 @@ Matthew
 A01373290
 """
 from unittest import TestCase
-from describe_current_location import describe_current_location
+from map.describe_current_location import describe_current_location
 from unittest.mock import patch
 import io
 
