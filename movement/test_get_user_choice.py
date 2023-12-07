@@ -8,7 +8,7 @@ A01373290
 
 
 from unittest import TestCase
-from get_user_choice import get_user_choice
+from movement.get_user_choice import get_user_choice
 import io
 from unittest.mock import patch
 

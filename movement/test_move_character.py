@@ -6,7 +6,7 @@ Matthew
 A01373290
 """
 from unittest import TestCase
-from move_character import move_character
+from movement.move_character import move_character
 
 
 class TestMoveCharacter(TestCase):

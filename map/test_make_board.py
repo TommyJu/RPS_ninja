@@ -7,7 +7,7 @@ A01373290
 """
 from unittest import TestCase
 from unittest.mock import patch
-from make_board import make_board
+from map.make_board import make_board
 
 
 class TestMakeBoard(TestCase):

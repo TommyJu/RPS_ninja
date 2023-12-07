@@ -3,7 +3,7 @@ Tommy Ju
 A01347715
 """
 from unittest import TestCase
-from make_character import make_character
+from character.make_character import make_character
 
 
 class TestMakeCharacter(TestCase):
