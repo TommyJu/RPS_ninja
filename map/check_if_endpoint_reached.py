@@ -14,7 +14,7 @@ def check_if_endpoint_reached(character: dict, board: dict) -> bool:
 
     :param character: dictionary representing the player character
     :param board: dictionary representing the game board
-    :preconcition: character is a dictionary with keys "X-coordiante" and "Y-coordinate" with integer values
+    :precondition: character is a dictionary with keys "X-coordiante" and "Y-coordinate" with integer values
                    Board is dictionary with tuple keys
     :postcondition: correctly determines if character is in endpoint square
                     True if in endpoint, False if not in endpoint
