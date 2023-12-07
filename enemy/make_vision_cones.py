@@ -25,7 +25,7 @@ def make_vision_cones(enemy_coordinates, board):
     start_point = [0, 0]
     # convert each coordinate tuple into a list
     board_coordinates = [list(coordinate) for coordinate in board]
-    invalid_coordinates = enemy_coordinates[:]
+    invalid_coordinates = enemy_coordinates.copy()
     invalid_coordinates.append(start_point)
     invalid_coordinates.append(end_point)
 

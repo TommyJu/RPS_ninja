@@ -27,16 +27,13 @@ import threading
 
 
 def game():
-
-
-
     rows = 10
     columns = 10
     end_point = (4, 4)
     board = make_board(rows, columns)
     character = make_character()
     enemies = make_enemy(board)
-    vision_cones = make_vision_cones(enemies)
+    vision_cones = make_vision_cones(enemies, board)
     achieved_goal = True
     # GUI
 
