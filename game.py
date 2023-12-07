@@ -15,6 +15,7 @@ from Unused.get_user_interface_data import get_user_interface_data
 from enemy.make_enemy import make_enemy
 from movement.enemies_move import enemies_move
 from enemy.make_vision_cones import make_vision_cones
+from enemy.enemy_detection import enemy_detection
 
 # GUI Modules
 import tkinter as tk
