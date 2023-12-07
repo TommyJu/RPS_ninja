@@ -10,16 +10,17 @@ from unittest.mock import patch
 
 
 class Test(TestCase):
-
-    @patch('random.choice', side_effect=[[1, 1], [1, 2]])
-    def test_enemies_move_both_move_south(self, _):
-        enemies = [[0, 1], [0, 2]]
-        visions = [[1, 1], [1, 2]]
-        board = {(0, 0): 'string', (0, 1): 'string', (0, 2): 'string',
-                 (1, 0): 'string', (1, 1): 'string', (1, 2): 'string'}
-        expected_enemies = [[1, 1], [1, 2]]
-        expected_visions = [[2, 1], [2, 2]]
-        actual = enemies_move(enemies, visions, board)
+    # patch is for randomly selecting an enemy's possible moves
+    @patch('random.choice', side_effect=[[1, 1]])
+    def test_enemy_move_north(self, _):
+        enemies = [[1, 2]]
+        visions = [None]
+        board = {(0, 0): "A haunted mansion", (1, 0): "A haunted mansion", (2, 0): "A haunted mansion",
+                 (0, 1): "A haunted mansion", (1, 1): "A haunted mansion", (2, 1): "A haunted mansion",
+                 (0, 2): "A haunted mansion", (1, 2): "A haunted mansion", (2, 2): "A haunted mansion"}
+        expected_enemies = [[1, 1]]
+        expected_visions = [[1, 0]]
+        enemies_move(enemies, visions, board)
         self.assertEqual(expected_enemies, enemies)
         self.assertEqual(expected_visions, visions)
 

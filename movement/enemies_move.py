@@ -25,7 +25,7 @@ def enemies_move(enemy_coordinates, visions, board):
     start_point = [0, 0]
     # convert each coordinate tuple into a list
     board_coordinates = [list(coordinate) for coordinate in board]
-    invalid_coordinates = enemy_coordinates[:]
+    invalid_coordinates = enemy_coordinates.copy()
     invalid_coordinates.append(start_point)
     invalid_coordinates.append(end_point)
 
@@ -39,9 +39,9 @@ def enemies_move(enemy_coordinates, visions, board):
             x_change = new_coordinate[0] - enemy_coordinates[enemy_index][0]
             y_change = new_coordinate[1] - enemy_coordinates[enemy_index][1]
             # Extend the vision cone using the new_coordinates and overwrite the existing if valid
-            new_vision_cone_position = new_coordinate[0] + x_change, new_coordinate[1] + y_change
+            new_vision_cone_position = [new_coordinate[0] + x_change, new_coordinate[1] + y_change]
             # Update vision cone
-            if new_vision_cone_position not in board_coordinates or new_vision_cone_position in invalid_coordinates:
+            if new_vision_cone_position in board_coordinates and new_vision_cone_position not in invalid_coordinates:
                 visions[enemy_index] = new_vision_cone_position
             else:
                 visions[enemy_index] = None

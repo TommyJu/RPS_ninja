@@ -27,9 +27,6 @@ import threading
 
 
 def game():
-
-
-
     rows = 10
     columns = 10
     end_point = (4, 4)

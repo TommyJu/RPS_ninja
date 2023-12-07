@@ -22,7 +22,7 @@ def validate_move_enemy(enemy, board, enemies):
     start_point = [0, 0]
     # convert each coordinate tuple into a list
     board_coordinates = [list(coordinate) for coordinate in board]
-    invalid_coordinates = enemies[:]
+    invalid_coordinates = enemies.copy()
     invalid_coordinates.append(start_point)
     invalid_coordinates.append(end_point)
 
