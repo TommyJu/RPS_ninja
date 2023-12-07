@@ -5,7 +5,6 @@ Matthew Yoon
 A01373290
 """
 import random
-
 from combat.get_choice_combat import get_choice_combat
 from combat.random_enemy_action import random_enemy_action
 from combat.does_player_win import does_player_win
