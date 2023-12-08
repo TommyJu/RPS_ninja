@@ -18,8 +18,7 @@ def choose_boss_attack_pattern():
     yield random.choice(choices)
 
 def main():
-    for _ in range(100):
-        print(list(choose_boss_attack_pattern()))
+    pass
 
 
 if __name__ == "__main__":
