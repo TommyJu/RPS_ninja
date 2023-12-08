@@ -117,13 +117,43 @@ def game():
 
     def game_instance():
         while True:
-            # Check if endpoint reached
+            # Check if endpoint reached or character is dead
             achieved_goal = check_if_endpoint_reached(character, board)
             character_still_alive = is_alive(character)
-            if achieved_goal or not character_still_alive:
-                # instance_data = get_user_interface_data(character, end_point, [(2, 2), (1, 1)])
-                # update_widgets(instance_data)
+            if achieved_goal:
+                # enemies = make_enemy(board)
+                # vision_cones = make_vision_cones(board)
+                enemies.clear()
+                vision_cones.clear()
+                for enemy_widget, vision_cone_widget in zip(enemy_widgets, vision_cone_widgets):
+                    enemy_widget.destroy()
+                    vision_cone_widget.destroy()
+                enemy_widgets.clear()
+                vision_cone_widgets.clear()
+                print(enemies)
+                print(vision_cones)
+                # Create new widgets
+                enemies.extend(make_enemy(board))
+                vision_cones.extend(make_vision_cones(enemies, board))
+
+                for index in range(len(enemies)):
+                    enemy_widget = tk.Label(canvas, image=enemy_image, background="white")
+                    enemy_widget.lift()
+                    enemy_widgets.append(enemy_widget)
+                for index in range(len(vision_cones)):
+                    vision_cone_widget = tk.Label(canvas, image=vision_cone_image, background="white")
+                    vision_cone_widgets.append(vision_cone_widget)
+                print(enemy_widgets)
+
+                # Reset character position
+                character["X-coordinate"] = 0
+                character["Y-coordinate"] = 0
+
+                new_level_data = get_user_interface_data(character, end_point, enemies)
+                update_widgets(new_level_data)
+            elif not character_still_alive:
                 break
+
             # Move character
             direction = get_user_choice(character, board)
             move_character(character, direction)
