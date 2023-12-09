@@ -19,7 +19,7 @@ def does_player_win(player_action, enemy_action):
     :postcondition: correctly determines if player wins the encounter, True if player win, False if player loses
     :return: Boolean representing player success in combat
     """
-    choices = {'rock': 0, 'paper': 1, 'scissor': 2}
+    choices = {'rock': 0, 'paper': 1, 'scissors': 2}
     result = choices[player_action[0]] - choices[enemy_action[0]]
     winner = ['draw', 'player win', 'player lose']
     match winner[result]:
