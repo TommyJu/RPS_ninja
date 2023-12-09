@@ -122,7 +122,7 @@ def game():
     end_point_image_file = Image.open("./assets/exit-door.png")
     end_point_image = ImageTk.PhotoImage(end_point_image_file.resize((30, 30)))
 
-    # game instance widgets
+    # game board widgets
     ninja_widget = tk.Label(canvas, image=ninja_image, background="white")
     enemy_widgets = []
     vision_cone_widgets = []
@@ -196,13 +196,17 @@ def game():
             print("Game end")
             return
 
+        # Get user input, then clear entry widget
+        user_input = input_widget_value.get()
+        input_widget.delete(0, "end")
+
         # Check for combat, then update GUI after combat
         enemy_detected_by_index = enemy_detection(character, enemies, vision_cones)
         # If there is an enemy present:
         if enemy_detected_by_index != None:
-            attack_input = input_widget_value.get()
+            # attack_input = input_widget_value.get()
             # validate attack input
-            attack_choice = get_choice_combat(attack_input)
+            attack_choice = get_choice_combat(user_input)
             # None represents an invalid choice, exit the game instance
             if attack_choice == None:
                 return
@@ -218,7 +222,6 @@ def game():
                     return
 
         # Move character
-        user_input = input_widget_value.get()
         direction = get_user_choice(character, board, user_input)
         # Add validation here and return out of game instance if invalid move
         if not validate_move(board, character, direction):
