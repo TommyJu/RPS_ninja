@@ -23,13 +23,16 @@ from character.is_alive import is_alive
 from movement.validate_move import validate_move
 from combat.get_choice_combat import get_choice_combat
 
+import sys
+import io
+
 # GUI Modules
 import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
 
 
-def game():
+def main():
     rows = 10
     columns = 10
     end_point = (9, 9)
@@ -67,11 +70,11 @@ def game():
             frame = tk.Frame(canvas, background="green", borderwidth=3, relief="raised")
             frame.grid(row=row, column=column, sticky="nsew", padx=2, pady=2)
 
-    # The column on the right will have 10 rows for each widget
+    # The column on the right will have 9 rows for each widget
     canvas_right = tk.Canvas(root, bg="black")
     canvas_right.grid(row=0, column=1, sticky="nsew")
     canvas_right.grid_columnconfigure(0)
-    for row in range(9):
+    for row in range(8):
         canvas_right.grid_rowconfigure(row)
 
     title_widget = tk.Label(canvas_right, text="RPS NINJA", background="white", fg="white", bg="black", font="40")
@@ -94,7 +97,8 @@ def game():
     stat_widget.grid(row=4, column=0, sticky="nsew")
     stat_widget.configure(font=("system", 12))
 
-    output_widget = tk.Label(canvas_right, text="DYNAMIC OUTPUT HERE", background="white", fg="white", bg="black")
+    output_string_variable = tk.StringVar()
+    output_widget = tk.Label(canvas_right, textvariable=output_string_variable, background="white", fg="white", bg="black")
     output_widget.grid(row=5, column=0, sticky="nsew")
     output_widget.configure(font=("system", 12))
 
@@ -104,11 +108,6 @@ def game():
 
     combat_buttons_container = tk.Frame(canvas_right)
     combat_buttons_container.grid(row=7, column=0, sticky="nsew")
-    # Create a container for rock paper scissors buttons
-    combat_buttons_container.grid_columnconfigure(3)
-    # add a function call back later
-    rock_widget = ttk.Button(combat_buttons_container, text='ROCK')
-
 
     # Images
     ninja_image_file = Image.open("./assets/ninja-heroic-stance.png")
@@ -158,7 +157,57 @@ def game():
     update_widgets(data)
 
     def game_instance():
-        # Check if endpoint reached or character is dead before proceeding with game instance
+        # assign the console output to buffer
+        sys.stdout = buffer = io.StringIO()
+        # Get user input, then clear entry widget
+        user_input = input_widget_value.get()
+        input_widget.delete(0, "end")
+
+        # Check for combat, then update GUI after combat
+        enemy_detected_by_index = enemy_detection(character, enemies, vision_cones)
+        # If there is an enemy present:
+        if enemy_detected_by_index != None:
+            print("Choose your weapon to defeat the enemy\n"
+                  "1. (R)ock\n"
+                  "2. (P)aper\n"
+                  "3. (S)cissor\n")
+            # Set the system output to the output_widget
+            output_string_variable.set(buffer.getvalue())
+            # validate attack input
+            attack_choice = get_choice_combat(user_input)
+            # None represents an invalid choice, exit the game instance
+            if attack_choice == None:
+                return
+            else:
+                is_combat_won = engage_combat(character, attack_choice)
+                # Set the system output to the output_widget
+                output_string_variable.set(buffer.getvalue())
+                # delete the enemy and update if player wins
+                if is_combat_won:
+                    delete_enemy(enemies, enemy_widgets, vision_cones, vision_cone_widgets, enemy_detected_by_index)
+                    instance_data = get_user_interface_data(character, end_point, [(2, 2), (1, 1)])
+                    update_widgets(instance_data)
+                # break out of the game instance to initiate the next phase of combat on user input
+                else:
+                    return
+
+        # Move character
+        direction = get_user_choice(character, board, user_input)
+        # Add validation here and return out of game instance if invalid move
+        if not validate_move(board, character, direction):
+            print("\nPlease enter a direction to move within the game board.\n"
+                  "To move north: type 'north', 'w', or '1'\n"
+                  "hint: W, A, S, or D are valid inputs for direction")
+            return
+        move_character(character, direction)
+
+        # Move enemies and update GUI
+        enemies_move(enemies, vision_cones, board)
+        describe_current_location(board, character)
+        instance_data = get_user_interface_data(character, end_point, [(2, 2), (1, 1)])
+        update_widgets(instance_data)
+
+        # Check if endpoint reached or character is dead before proceeding with next game instance
         achieved_goal = check_if_endpoint_reached(character, board)
         character_still_alive = is_alive(character)
         # Load new level if you reach the end point
@@ -196,62 +245,16 @@ def game():
             print("Game end")
             return
 
-        # Get user input, then clear entry widget
-        user_input = input_widget_value.get()
-        input_widget.delete(0, "end")
-
-        # Check for combat, then update GUI after combat
-        enemy_detected_by_index = enemy_detection(character, enemies, vision_cones)
-        # If there is an enemy present:
-        if enemy_detected_by_index != None:
-            # attack_input = input_widget_value.get()
-            # validate attack input
-            attack_choice = get_choice_combat(user_input)
-            # None represents an invalid choice, exit the game instance
-            if attack_choice == None:
-                return
-            else:
-                is_combat_won = engage_combat(character, attack_choice)
-                # delete the enemy and update if player wins
-                if is_combat_won:
-                    delete_enemy(enemies, enemy_widgets, vision_cones, vision_cone_widgets, enemy_detected_by_index)
-                    instance_data = get_user_interface_data(character, end_point, [(2, 2), (1, 1)])
-                    update_widgets(instance_data)
-                # break out of the game instance to initiate the next phase of combat on user input
-                else:
-                    return
-
-        # Move character
-        direction = get_user_choice(character, board, user_input)
-        # Add validation here and return out of game instance if invalid move
-        if not validate_move(board, character, direction):
-            print("\nPlease enter a direction to move within the game board.\n"
-                  "To move north: type 'north', 'n', or '1'")
-            return
-        move_character(character, direction)
-
-        # Move enemies and update GUI
-        enemies_move(enemies, vision_cones, board)
-        describe_current_location(board, character)
-        instance_data = get_user_interface_data(character, end_point, [(2, 2), (1, 1)])
-        update_widgets(instance_data)
-
-        # Check for an enemy after move to print a combat message for the next instance
-        if enemy_detection(character, enemies, vision_cones) != None:
-            print("Choose your weapon to defeat the enemy\n"
-                  "1. (R)ock\n"
-                  "2. (P)aper\n"
-                  "3. (S)cissor\n")
+        # Set the system output to the output_widget
+        output_string_variable.set(buffer.getvalue())
 
     # The enter widget initiates a game instance on click
     enter_widget = ttk.Button(canvas_right, text="ENTER", command=game_instance)
     enter_widget.grid(row=7, column=0, sticky="nsew")
+    root.bind('<Return>', lambda e: enter_widget.invoke())
+
 
     root.mainloop()
-
-
-def main():
-    game()
 
 
 if __name__ == "__main__":

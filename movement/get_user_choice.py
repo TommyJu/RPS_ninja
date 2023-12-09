@@ -20,25 +20,19 @@ def get_user_choice(character, board, user_input):
     :return: a string representing move direction ("north", "south", "east", or "west")
     """
     acceptable_inputs = {"north", "south", "east", "west",
-                         "n", "s", "e", "w",
+                         "w", "s", "d", "a",
                          "1", "2", "3", "4"}
 
-    equivalent_inputs = [["north", "n", "1"],
+    equivalent_inputs = [["north", "w", "1"],
                          ["south", "s", "2"],
-                         ["east", "e", "3"],
-                         ["west", "w", "4"]]
+                         ["east", "d", "3"],
+                         ["west", "a", "4"]]
 
-    # while True:
-    # user_input = input("Where do you wish to go?\n"
-    #                    "1. (N)orth\n"
-    #                    "2. (S)outh\n"
-    #                    "3. (E)ast\n"
-    #                    "4. (W)est\n")
-    print("Where do you wish to go?\n"
-          "1. (N)orth\n"
-          "2. (S)outh\n"
-          "3. (E)ast\n"
-          "4. (W)est\n")
+    print("Where do you wish to go? (Protip: type W, A, S, or D to move)\n"
+          "1. North\n"
+          "2. South\n"
+          "3. East\n"
+          "4. West\n")
     user_input = user_input.strip()
     # if user_input.lower() in acceptable_inputs:
     for direction in equivalent_inputs:

@@ -34,7 +34,7 @@ def engage_combat(character: dict, attack_choice: str):
     """
     print("an enemy approaches")
 
-    while is_alive(character):
+    if is_alive(character):
         print("You have:" + str(character["Current HP"]) + "HP")
         player_action = (get_choice_combat(attack_choice), (random.randint(0, 10) + character["Attack Level"]))
         print("you used " + str(player_action[0]) + " with power " + str(player_action[1]))
