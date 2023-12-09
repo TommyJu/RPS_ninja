@@ -67,11 +67,11 @@ def game():
             frame = tk.Frame(canvas, background="green", borderwidth=3, relief="raised")
             frame.grid(row=row, column=column, sticky="nsew", padx=2, pady=2)
 
-    # The column on the right will have 10 rows for each widget
+    # The column on the right will have 9 rows for each widget
     canvas_right = tk.Canvas(root, bg="black")
     canvas_right.grid(row=0, column=1, sticky="nsew")
     canvas_right.grid_columnconfigure(0)
-    for row in range(9):
+    for row in range(8):
         canvas_right.grid_rowconfigure(row)
 
     title_widget = tk.Label(canvas_right, text="RPS NINJA", background="white", fg="white", bg="black", font="40")
@@ -104,10 +104,6 @@ def game():
 
     combat_buttons_container = tk.Frame(canvas_right)
     combat_buttons_container.grid(row=7, column=0, sticky="nsew")
-    # Create a container for rock paper scissors buttons
-    combat_buttons_container.grid_columnconfigure(3)
-    # add a function call back later
-    rock_widget = ttk.Button(combat_buttons_container, text='ROCK')
 
 
     # Images
@@ -204,7 +200,6 @@ def game():
         enemy_detected_by_index = enemy_detection(character, enemies, vision_cones)
         # If there is an enemy present:
         if enemy_detected_by_index != None:
-            # attack_input = input_widget_value.get()
             # validate attack input
             attack_choice = get_choice_combat(user_input)
             # None represents an invalid choice, exit the game instance
@@ -226,7 +221,8 @@ def game():
         # Add validation here and return out of game instance if invalid move
         if not validate_move(board, character, direction):
             print("\nPlease enter a direction to move within the game board.\n"
-                  "To move north: type 'north', 'n', or '1'")
+                  "To move north: type 'north', 'w', or '1'\n"
+                  "hint: W, A, S, or D are valid inputs for direction")
             return
         move_character(character, direction)
 
@@ -246,6 +242,7 @@ def game():
     # The enter widget initiates a game instance on click
     enter_widget = ttk.Button(canvas_right, text="ENTER", command=game_instance)
     enter_widget.grid(row=7, column=0, sticky="nsew")
+    root.bind('<Return>', lambda e: enter_widget.invoke())
 
     root.mainloop()
 
