@@ -17,9 +17,21 @@ from combat.get_choice_combat import get_choice_combat
 
 def boss_combat(character, boss):
     while is_boss_alive(boss) and is_alive(character):
+        print("You have:" + str(character["Current HP"]) + "HP")
+        player_action = (get_choice_combat(), random.randint(0, 10) + character["Attack Level"])
+        print("you used " + str(player_action[0]) + " with power " + str(player_action[1]))
         enemy_action = (choose_boss_attack_pattern(), random.randint(2, 12))
-        player_action = (get_choice_combat(), random.randint(0,10) + character["Attack Level"])
-        does_player_win(player_action, enemy_action)
+        print("enemy used " + str(enemy_action[0]) + " with power " + str(enemy_action[1]))
+        if does_player_win(player_action, enemy_action):
+            print("you won")
+            return True
+        else:
+            if (enemy_action[1] - player_action[1]) > 0:
+                character["Current HP"] -= (enemy_action[1] - player_action[1])
+                print('you took ' + str(enemy_action[1] - player_action[1]) + ' dmg')
+            else:
+                character["Current HP"] -= 1
+    return False
 
 
 
