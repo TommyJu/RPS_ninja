@@ -16,7 +16,7 @@ from combat.get_choice_combat import get_choice_combat
 
 
 def boss_combat(character, boss):
-    while is_boss_alive(boss) and is_alive(character):
+    if is_boss_alive(boss) and is_alive(character):
         print("You have:" + str(character["Current HP"]) + "HP")
         player_action = (get_choice_combat(), random.randint(0, 10) + character["Attack Level"])
         print("you used " + str(player_action[0]) + " with power " + str(player_action[1]))
