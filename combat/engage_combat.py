@@ -10,13 +10,14 @@ from combat.random_enemy_action import random_enemy_action
 from combat.does_player_win import does_player_win
 
 
-def engage_combat(character: dict):
+def engage_combat(character: dict, attack_input: str):
     """
     run combat encounter
 
     player will be locked into combat until victory or player HP is 0. removes enemy engaged in combat in victory
 
     :param character: dictionary representing the users' character
+    :param attack_input: a string from the GUI's text input
     :param enemy_coordinates: list of lists representing coordinates of enemies
     :param enemy_widgets: a list of Tkinter labels for enemies
     :param vision_cones: list of lists or none representing coordinates of vision cones
@@ -33,9 +34,9 @@ def engage_combat(character: dict):
     """
     print("an enemy approaches")
 
-    while (character["Current HP"] > 0):
+    if (character["Current HP"] > 0):
         print("You have:" + str(character["Current HP"]) + "HP")
-        player_action = (get_choice_combat(), (random.randint(0, 10) + character["Attack Level"]))
+        player_action = (get_choice_combat(attack_input), (random.randint(0, 10) + character["Attack Level"]))
         print("you used " + str(player_action[0]) + " with power " + str(player_action[1]))
         enemy_action = random_enemy_action()
         print("enemy used " + str(enemy_action[0]) + " with power " + str(enemy_action[1]))
