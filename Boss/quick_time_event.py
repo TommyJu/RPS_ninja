@@ -15,10 +15,28 @@ def timer(function):
         quick_time_input = function(*args, **kwargs)
         end_time = time.perf_counter()
         runtime = end_time - start_time
-        time_success = runtime < 2.5
+        time_success = determine_damage(runtime)
+
+
         return quick_time_input and time_success
 
     return wrapper_timer
+
+
+
+
+def determine_damage(player_time: float) -> str:
+    """
+
+    :param player_time:
+    :return:
+    """
+    if player_time <= 1.7:
+        return "no damage"
+    elif player_time <= 2.5:
+        return "minimal damage"
+    elif player_time <= 3.0:
+        return "significant damage"
 
 
 @timer
