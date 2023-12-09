@@ -23,6 +23,7 @@ from character.is_alive import is_alive
 
 # GUI Modules
 import tkinter as tk
+from tkinter import ttk
 from PIL import Image, ImageTk
 import threading
 
@@ -51,6 +52,7 @@ def game():
     root.grid_columnconfigure(0, weight=1)
     root.grid_columnconfigure(1, weight=2)
 
+
     canvas = tk.Canvas(root)
     canvas.grid(row=0, column=0, sticky="nsew")
 
@@ -64,6 +66,42 @@ def game():
             # Add the frame container widget to each cell to create border effect
             frame = tk.Frame(canvas, background="green", borderwidth=3, relief="raised")
             frame.grid(row=row, column=column, sticky="nsew", padx=2, pady=2)
+
+    # The column on the right will have 6 rows
+    canvas_right = tk.Canvas(root, bg="black")
+    canvas_right.grid(row=0, column=1, sticky="nsew")
+    canvas_right.grid_columnconfigure(0)
+    for row in range(7):
+        canvas_right.grid_rowconfigure(row)
+        # frame_right = tk.Frame(canvas_right, background="green", borderwidth=3, relief="raised")
+        # frame_right.grid(row=row, column=0, sticky="nsew")
+
+    title_widget = tk.Label(canvas_right, text="RPS NINJA", background="white", fg="white", bg="black", font="40")
+    title_widget.grid(row=0, column=0, sticky="nsew")
+    title_widget.configure(font=("system", 32))
+
+    level_widget = tk.Label(canvas_right, text="LEVEL 1", background="white", fg="white", bg="black")
+    level_widget.grid(row=1, column=0, sticky="nsew")
+    level_widget.configure(font=("system", 24))
+
+    health_text_widget = tk.Label(canvas_right, text="Current HP:", background="white", fg="white", bg="black")
+    health_text_widget.grid(row=2, column=0, sticky="nsew")
+    health_text_widget.configure(font=("system", 12))
+    health_widget = ttk.Progressbar(canvas_right, length=200)
+    health_widget["value"] = 100
+    health_widget.grid(row=3, column=1, sticky="nsew")
+
+    stat_widget = tk.Label(canvas_right, text="PLAYER ACTION: 10", background="white", fg="white", bg="black")
+    stat_widget.grid(row=4, column=0, sticky="nsew")
+    stat_widget.configure(font=("system", 12))
+
+    output_widget = tk.Label(canvas_right, text="DYNAMIC OUTPUT HERE", background="white", fg="white", bg="black")
+    output_widget.grid(row=5, column=0, sticky="nsew")
+    output_widget.configure(font=("system", 12))
+
+    input_widget = ttk.Entry(canvas_right)
+    input_widget.grid(row=6, column=0, sticky="nsew")
+
 
     # Images
     ninja_image_file = Image.open("./assets/ninja-heroic-stance.png")
