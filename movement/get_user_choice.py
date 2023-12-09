@@ -40,17 +40,17 @@ def get_user_choice(character, board, user_input):
           "3. (E)ast\n"
           "4. (W)est\n")
     user_input = user_input.strip()
-    if user_input.lower() in acceptable_inputs:
-        for direction in equivalent_inputs:
-            if user_input.lower() in direction:
-                if validate_move(board, character, direction[0]):
-                    return direction[0]
-                else:
-                    print("move is not valid \n"
-                          "please keep movement on board")
-    else:
-        print("\nPlease enter a valid direction.\n"
-              "To move north: type 'north', 'n', or '1'")
+    # if user_input.lower() in acceptable_inputs:
+    for direction in equivalent_inputs:
+        if user_input.lower() in direction:
+            # if validate_move(board, character, direction[0]):
+            return direction[0]
+#             else:
+#                 print("move is not valid \n"
+#                       "please keep movement on board")
+# else:
+#     print("\nPlease enter a valid direction.\n"
+#           "To move north: type 'north', 'n', or '1'")
 
 
 def main():

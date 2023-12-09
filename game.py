@@ -20,6 +20,7 @@ from enemy.delete_enemy import delete_enemy
 from combat.engage_combat import engage_combat
 from map.check_if_endpoint_reached import check_if_endpoint_reached
 from character.is_alive import is_alive
+from movement.validate_move import validate_move
 
 # GUI Modules
 import tkinter as tk
@@ -151,7 +152,7 @@ def game():
 
     def game_instance():
         # while True:
-        # Check if endpoint reached or character is dead
+        # Check if endpoint reached or character is dead before proceeding with game instance
         achieved_goal = check_if_endpoint_reached(character, board)
         character_still_alive = is_alive(character)
         if achieved_goal:
@@ -185,17 +186,25 @@ def game():
 
             new_level_data = get_user_interface_data(character, end_point, enemies)
             update_widgets(new_level_data)
+
         elif not character_still_alive:
             # break
+            print("Game end")
             return
 
         # Move character
-        direction = get_user_choice(character, board, input_widget_value.get())
+        user_input = input_widget_value.get()
+        direction = get_user_choice(character, board, user_input)
+        # Add validation here and return out of game instance if invalid move
+        if not validate_move(board, character, direction):
+            print("\nPlease enter a direction to move within the game board.\n"
+                  "To move north: type 'north', 'n', or '1'")
+            return
         move_character(character, direction)
 
         # Move enemies and update GUI
         enemies_move(enemies, vision_cones, board)
-        describe_current_location(board, character)
+        # describe_current_location(board, character)
         instance_data = get_user_interface_data(character, end_point, [(2, 2), (1, 1)])
         update_widgets(instance_data)
 
@@ -208,7 +217,6 @@ def game():
                 instance_data = get_user_interface_data(character, end_point, [(2, 2), (1, 1)])
                 update_widgets(instance_data)
 
-    print("Game end")
 
     # Create a separate thread for the game loop
     # threading.Thread(target=game_instance).start()
