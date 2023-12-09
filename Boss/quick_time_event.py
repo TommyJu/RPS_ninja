@@ -31,11 +31,13 @@ def determine_damage(player_time: float) -> str:
     :param player_time:
     :return:
     """
-    if player_time <= 1.7:
+    if player_time <= 1.0:
+        return "counter"
+    elif player_time <= 1.7:
         return "no damage"
     elif player_time <= 2.5:
         return "minimal damage"
-    elif player_time >= 3.0:
+    else:
         return "significant damage"
 
 
@@ -56,8 +58,6 @@ def quick_time_event():
             user_input = input('watch out above!\n(type crouch)\n')
             return 'crouch' == user_input
 
-
-print(quick_time_event())
 
 def main():
     pass
