@@ -16,9 +16,9 @@ def timer(function):
         end_time = time.perf_counter()
         runtime = end_time - start_time
         time_success = determine_damage(runtime)
-
-
-        return quick_time_input and time_success
+        quick_time_result = (quick_time_input, time_success)
+        print(quick_time_result)
+        return quick_time_result
 
     return wrapper_timer
 
@@ -35,7 +35,7 @@ def determine_damage(player_time: float) -> str:
         return "no damage"
     elif player_time <= 2.5:
         return "minimal damage"
-    elif player_time <= 3.0:
+    elif player_time >= 3.0:
         return "significant damage"
 
 
