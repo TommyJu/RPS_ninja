@@ -8,6 +8,7 @@ import random
 from combat.get_choice_combat import get_choice_combat
 from combat.random_enemy_action import random_enemy_action
 from combat.does_player_win import does_player_win
+from character.is_alive import is_alive
 
 
 def engage_combat(character: dict):
@@ -33,7 +34,7 @@ def engage_combat(character: dict):
     """
     print("an enemy approaches")
 
-    while (character["Current HP"] > 0):
+    while is_alive(character):
         print("You have:" + str(character["Current HP"]) + "HP")
         player_action = (get_choice_combat(), (random.randint(0, 10) + character["Attack Level"]))
         print("you used " + str(player_action[0]) + " with power " + str(player_action[1]))
@@ -52,7 +53,7 @@ def engage_combat(character: dict):
 
 
 def main():
-   pass
+    pass
 
 
 if __name__ == "__main__":
