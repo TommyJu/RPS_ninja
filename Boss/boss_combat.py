@@ -5,8 +5,6 @@ Matthew Yoon
 A01373290
 """
 import random
-
-from is_boss_alive import is_boss_alive
 from quick_time_event import quick_time_event
 from choose_boss_attack_pattern import choose_boss_attack_pattern
 from character.is_alive import is_alive
