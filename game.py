@@ -24,6 +24,8 @@ from movement.validate_move import validate_move
 from combat.get_choice_combat import get_choice_combat
 from character.level_up import level_up
 from character.restore_hp import restore_hp
+from Boss.make_boss import make_boss
+from Boss.boss_combat import boss_combat
 # GUI Modules
 import tkinter as tk
 from tkinter import ttk
@@ -40,7 +42,7 @@ def main():
     character = make_character()
     enemies = make_enemy(board)
     vision_cones = make_vision_cones(enemies, board)
-    game_level = [1]
+    game_level = [2]
     level_up_pending = [False]
 
     # GUI
@@ -132,6 +134,8 @@ def main():
     level_one_image = ImageTk.PhotoImage(level_one_image_file.resize((2000, 2000)))
     level_two_image_file = Image.open("./assets/fire_level_background.png")
     level_two_image = ImageTk.PhotoImage(level_two_image_file.resize((2000, 2000)))
+    boss_level_image_file = Image.open("./assets/the_boss.jpg")
+    boss_level_image = ImageTk.PhotoImage(level_two_image_file.resize((2000, 2000)))
     end_point_image_file = Image.open("./assets/exit-door.png")
     end_point_image = ImageTk.PhotoImage(end_point_image_file.resize((30, 30)))
 
@@ -181,6 +185,67 @@ def main():
         output_widget.insert("end", buffer.getvalue())
         # Scroll to the bottom of the text widget
         output_widget.see("end")
+
+    boss = make_boss()
+    def boss_game_instance():
+        user_input = input_widget_value.get()
+        input_widget.delete(0, "end")
+
+        # Check if the player needs to select a skill upgrade
+        if level_up_pending[0]:
+            restore_hp(character)
+            # Returns true and alters stats if input is valid
+            if not level_up(character, user_input):
+                print("\nPlease enter a skill to upgrade.\n")
+                update_output_widget()
+                return
+            else:
+                level_up_pending[0] = False
+                print(f"\nUpgrade success\n"
+                      f"Your Attack Level is: {character['Attack Level']}\n"
+                      f"Your Max HP is: {character["Max HP"]}\n"
+                      f"Your HP has been replenished\n")
+                update_output_widget()
+                return
+
+        print("\nThe boss stands before you for the ulimate rock paper scissors showdown!\n"
+              "Choose your weapon to defeat the boss:\n"
+              "1. (R)ock\n"
+              "2. (P)aper\n"
+              "3. (S)cissors\n")
+
+        # Grab user input and break out of game instance if invalid
+        attack_choice_for_boss = get_choice_combat(user_input)
+        if attack_choice_for_boss == None:
+            return
+
+        is_boss_defeated = boss_combat(character, boss, attack_choice_for_boss)
+        update_output_widget()
+        if is_boss_defeated:
+            print(f"Congratulations! You have defeated the boss.\n"
+                  f"You are the RPS NINJA champion!\n"
+                  f"🥷🏼🥷🏼🥷🏼 All other ninjas bow before you 🥷🏼🥷🏼🥷🏼")
+            boss_enter_widget.destroy()
+
+
+    boss_enter_widget = ttk.Button(canvas_right, text="ENTER", command=boss_game_instance)
+    def generate_boss_level():
+        canvas.delete("all")
+        for frame_widget in frame_widgets:
+            frame_widget.destroy()
+        canvas.create_image(0, 0, image=boss_level_image)
+        level_up_pending[0] = True
+
+        # Make a new entry widget that calls the boss game instance instead of game instance
+        # The enter widget initiates a game instance on click
+        enter_widget.destroy()
+
+        boss_enter_widget.grid(row=8, column=0, sticky="nsew")
+        root.bind('<Return>', lambda e: boss_enter_widget.invoke())
+
+        # initate the level up scheme
+        boss_game_instance()
+
 
     def generate_level_2():
         # Clear widgets and data for enemies and vision cones
@@ -237,7 +302,8 @@ def main():
                 level_up_pending[0] = False
                 print(f"\nUpgrade success\n"
                       f"Your Attack Level is: {character['Attack Level']}\n"
-                      f"Your Max HP is: {character["Max HP"]}\n")
+                      f"Your Max HP is: {character["Max HP"]}\n"
+                      f"Your HP has been replenished\n")
                 update_output_widget()
                 return
 
@@ -299,7 +365,8 @@ def main():
                 generate_level_2()
                 return
             elif game_level[0] == 3:
-                pass
+                generate_boss_level()
+                return
 
         # Let the player know if an enemy has been encountered for the next game instance
         enemy_detected_by_index = enemy_detection(character, enemies, vision_cones)

@@ -35,7 +35,7 @@ def boss_combat(character: dict, boss: dict, attack_choice: str) -> bool:
     :return: Boolean representing the result of combat, True if enemy is defeated, False otherwise
     """
     if is_alive(boss) and is_alive(character):
-        print("You have:" + str(character["Current HP"]) + "HP")
+        print("\nYou have:" + str(character["Current HP"]) + "HP")
         if does_quick_time_occur():
             quick_time_input = quick_time_event()
             resolve_quick_time(quick_time_input, character)
