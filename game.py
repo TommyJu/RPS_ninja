@@ -22,6 +22,8 @@ from map.check_if_endpoint_reached import check_if_endpoint_reached
 from character.is_alive import is_alive
 from movement.validate_move import validate_move
 from combat.get_choice_combat import get_choice_combat
+from character.level_up import level_up
+from character.restore_hp import restore_hp
 # GUI Modules
 import tkinter as tk
 from tkinter import ttk
@@ -39,6 +41,7 @@ def main():
     enemies = make_enemy(board)
     vision_cones = make_vision_cones(enemies, board)
     game_level = [1]
+    level_up_pending = [False]
 
     # GUI
     GUI_HEIGHT = 600
@@ -195,7 +198,7 @@ def main():
             canvas.create_image(0, 0, image=level_two_image)
             # Change color of game board cells
             for frame_widget in frame_widgets:
-                frame_widget.configure(background="azure")
+                frame_widget.configure(background="brown")
             # Generate new enemies
             for index in range(len(enemies)):
                 enemy_widget = tk.Label(canvas, image=level_two_enemy_image, background="white")
@@ -212,11 +215,32 @@ def main():
             new_level_data = get_user_interface_data(character, end_point, enemies)
             update_widgets(new_level_data)
 
+            level_up_pending[0] = True
+            # call a game instance to prompt the user to select a skill
+            game_instance()
+
 
     def game_instance():
         # Get user input, then clear entry widget
         user_input = input_widget_value.get()
         input_widget.delete(0, "end")
+
+        # Check if the player needs to select a skill upgrade
+        if level_up_pending[0]:
+            restore_hp(character)
+            # Returns true and alters stats if input is valid
+            if not level_up(character, user_input):
+                print("\nPlease enter a skill to upgrade.\n")
+                update_output_widget()
+                return
+            else:
+                level_up_pending[0] = False
+                print(f"\nUpgrade success\n"
+                      f"Your Attack Level is: {character['Attack Level']}\n"
+                      f"Your Max HP is: {character["Max HP"]}\n")
+                update_output_widget()
+                return
+
 
         # Check for combat, then update GUI after combat
         enemy_detected_by_index = enemy_detection(character, enemies, vision_cones)

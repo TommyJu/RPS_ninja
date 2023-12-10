@@ -21,7 +21,7 @@ def level_up(character: dict, user_input: str) -> dict:
     equivalent_inputs = [["attack", "a", "1"],
                          ["defense", "d", "2"]]
 
-    print("You have completed a great feat\n"
+    print("\nYou have completed a great feat\n"
           "by doing so you have leveled up\n\n"
           "Choose between \n"
           "1.(D)efense\n"
@@ -29,7 +29,10 @@ def level_up(character: dict, user_input: str) -> dict:
     user_input = user_input.strip()
     for choices in equivalent_inputs:
         if user_input.lower() in choices:
-            return resolve_level_up(choices[0], character)
+            # return resolve_level_up(choices[0], character)
+            resolve_level_up(choices[0], character)
+            return True
+    return False
 
 
 def resolve_level_up(user_choice: str, character: dict) -> dict:
