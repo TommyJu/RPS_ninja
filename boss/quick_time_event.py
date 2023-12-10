@@ -8,30 +8,7 @@ import random
 import time
 
 
-def timer(function) -> tuple:
-    """
-    measure input time and correctness
-
-    :param function: function to be timed
-    :return: tuple
-    """
-    def wrapper_timer(*args, **kwargs):
-        input('entering quick time event\n press enter to start')
-        start_time = time.perf_counter()
-        quick_time_input = function(*args, **kwargs)
-        end_time = time.perf_counter()
-        runtime = end_time - start_time
-        time_success = determine_damage(runtime)
-        quick_time_result = (quick_time_input, time_success)
-        print(quick_time_result)
-        return quick_time_result
-
-    return wrapper_timer
-
-
-
-
-def determine_damage(player_time: float) -> str:
+def determine_damage(player_time):
     """
     Determines the effect of player time
 
@@ -50,9 +27,31 @@ def determine_damage(player_time: float) -> str:
     else:
         return "significant damage"
 
+def timer(function):
+    """
+    measure input time and correctness
+
+    :param function: function to be timed
+    :return: tuple
+    """
+
+    def wrapper_timer(*args, **kwargs):
+        input('entering quick time event\n press enter to start')
+        start_time = time.perf_counter()
+        quick_time_input = function(*args, **kwargs)
+        end_time = time.perf_counter()
+        runtime = end_time - start_time
+        time_success = determine_damage(runtime)
+        quick_time_result = (quick_time_input, time_success)
+        print(quick_time_result)
+        return quick_time_result
+
+    return wrapper_timer
+
+
 
 @timer
-def quick_time_event() -> bool:
+def quick_time_event():
     """
     Determine if user input is what the user was asked to type
 

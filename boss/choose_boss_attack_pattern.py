@@ -5,7 +5,6 @@ Matthew Yoon
 A01373290
 """
 import random
-import itertools
 
 
 # def choose_boss_attack_pattern():

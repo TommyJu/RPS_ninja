@@ -27,7 +27,7 @@ def boss_combat(character: dict, boss: dict, attack_choice: str) -> bool:
     :precondition: Correctly determines if widget must be removed, If false remove the widget,
                    True if widget should be removed
                    Character must be a dictionary with key "Current HP" and "Attack Level" with values being integers
-                   Boss must be a dictionary with key "Current HP"
+                   boss must be a dictionary with key "Current HP"
                    attack_choice must be a string
     :postcondition: correctly determines if either boss of character dictionary is altered and by how much
                     Correctly determine if combat results in false, widget should be remove
