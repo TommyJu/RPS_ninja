@@ -6,9 +6,9 @@ A01373290
 """
 
 
-def level_up(character: dict, user_input: str) -> dict:
+def level_up(character: dict, user_input: str) -> bool:
     """
-    Alter the user dictionary to reflect there chosen upgrade
+    Determine if upgrade has taken place after user input
 
     :param character: dictionary representing the player character
     :param user_input: string obtained from the GUI
