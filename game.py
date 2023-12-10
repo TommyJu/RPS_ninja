@@ -139,7 +139,7 @@ def main():
     level_two_image_file = Image.open("./assets/fire_level_background.png")
     level_two_image = ImageTk.PhotoImage(level_two_image_file.resize((2000, 2000)))
     boss_level_image_file = Image.open("./assets/the_boss.jpg")
-    boss_level_image = ImageTk.PhotoImage(level_two_image_file.resize((2000, 2000)))
+    boss_level_image = ImageTk.PhotoImage(boss_level_image_file.resize((1400, 1000)))
     end_point_image_file = Image.open("./assets/exit-door.png")
     end_point_image = ImageTk.PhotoImage(end_point_image_file.resize((30, 30)))
 
@@ -231,10 +231,19 @@ def main():
                   f"🥷🏼🥷🏼🥷🏼 All other ninjas bow before you 🥷🏼🥷🏼🥷🏼")
             boss_enter_widget.destroy()
 
-
     boss_enter_widget = ttk.Button(canvas_right, text="ENTER", command=boss_game_instance)
     def generate_boss_level():
+        # Clear widgets and data for enemies and vision cones
+        enemies.clear()
+        vision_cones.clear()
+        for enemy_widget, vision_cone_widget in zip(enemy_widgets, vision_cone_widgets):
+            enemy_widget.destroy()
+            vision_cone_widget.destroy()
+        enemy_widgets.clear()
+        vision_cone_widgets.clear()
+        end_point_widget.destroy()
         canvas.delete("all")
+
         for frame_widget in frame_widgets:
             frame_widget.destroy()
         canvas.create_image(0, 0, image=boss_level_image)
