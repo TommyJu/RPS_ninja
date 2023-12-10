@@ -145,7 +145,7 @@ def main():
     level_two_image_file = Image.open("./assets/fire_level_background.png")
     level_two_image = ImageTk.PhotoImage(level_two_image_file.resize((2000, 2000)))
     boss_level_image_file = Image.open("./assets/the_boss.jpg")
-    boss_level_image = ImageTk.PhotoImage(boss_level_image_file.resize((500, 800)))
+    boss_level_image = ImageTk.PhotoImage(boss_level_image_file.resize((650, 800)))
     end_point_image_file = Image.open("./assets/exit-door.png")
     end_point_image = ImageTk.PhotoImage(end_point_image_file.resize((30, 30)))
 
