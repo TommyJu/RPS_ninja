@@ -32,8 +32,6 @@ def engage_combat(character: dict, attack_choice: str):
     :postcondition: remove enemy coordinate in combat and lantern associated with enemy in combat using the index
                     character value in key "Current HP" may change if player loses a round of RPS
     """
-    print("an enemy approaches")
-
     if is_alive(character):
         print("You have:" + str(character["Current HP"]) + "HP")
         player_action = (get_choice_combat(attack_choice), (random.randint(0, 10) + character["Attack Level"]))
