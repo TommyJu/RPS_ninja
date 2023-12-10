@@ -200,7 +200,7 @@ def main():
     boss_defeats = [0]
     def boss_game_instance():
         # Game win
-        if boss_defeats[0] == 3:
+        if boss_defeats[0] == 5:
             root.destroy()
             return
 
