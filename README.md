@@ -76,6 +76,9 @@ Upgrading your character's attack will increase your odds of generating a higher
 Upgrading defense will increase your max HP.
 You regenerate health on level up.
 
+## Output
+You can scroll through the GUI's console to see past game history.
+
 
 >Thank you Chris for always going the extra mile. Comp 1510 is an amazing course, and I'm glad that I got to be a part of it.
 -Tommy
