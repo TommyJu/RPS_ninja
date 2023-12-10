@@ -207,7 +207,7 @@ def main():
                 level_up_pending[0] = False
                 print(f"\nUpgrade success\n"
                       f"Your Attack Level is: {character['Attack Level']}\n"
-                      f"Your Max HP is: {character["Max HP"]}\n"
+                      f"Your Max HP is: {character['Max HP']}\n"
                       f"Your HP has been replenished\n")
                 update_output_widget()
                 return
@@ -306,7 +306,7 @@ def main():
                 level_up_pending[0] = False
                 print(f"\nUpgrade success\n"
                       f"Your Attack Level is: {character['Attack Level']}\n"
-                      f"Your Max HP is: {character["Max HP"]}\n"
+                      f"Your Max HP is: {character['Max HP']}\n"
                       f"Your HP has been replenished\n")
                 update_output_widget()
                 return
