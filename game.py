@@ -113,15 +113,21 @@ def main():
     # output_string_variable = tk.StringVar()
     # output_widget = tk.Label(canvas_right, textvariable=output_string_variable, background="white", fg="white", bg="black")
     output_widget = tk.Text(canvas_right, background="black", foreground="white")
-    output_widget.grid(row=5, column=0, sticky="nsew")
+    output_widget.grid(row=3, column=0, sticky="nsew")
     output_widget.configure(font=("system", 12))
 
-    scroll_widget = tk.Scrollbar(canvas_right, command=output_widget.yview)
-    scroll_widget.grid(row=6, column=0, sticky="nsew")
+    scroll_widget = tk.Scrollbar(canvas_right, command=output_widget.yview, background="black", highlightcolor="black", troughcolor="black")
+    scroll_widget.grid(row=4, column=0, sticky="nsew")
+    # hide not used scroll bar
+    scroll_widget.grid_forget()
     output_widget["yscrollcommand"] = scroll_widget.set
 
+    input_text_widget = tk.Label(canvas_right, text="GAME INPUT BELOW:", background="white", fg="white", bg="black")
+    input_text_widget.grid(row=6, column=0, sticky="nsew")
+    input_text_widget.configure(font=("system", 20))
+
     input_widget_value = tk.StringVar()
-    input_widget = ttk.Entry(canvas_right, textvariable=input_widget_value)
+    input_widget = ttk.Entry(canvas_right, textvariable=input_widget_value, background="white")
     input_widget.grid(row=7, column=0, sticky="nsew")
 
 
@@ -218,7 +224,7 @@ def main():
                 update_output_widget()
 
         print("\nThe boss stands before you for the ulimate rock paper scissors showdown!\n"
-              "You must defeat him three times before you can advance.\n"
+              "You must defeat him FIVE times before you can advance.\n"
               "Choose your weapon to defeat the boss:\n"
               "1. (R)ock\n"
               "2. (P)aper\n"
@@ -237,7 +243,7 @@ def main():
                 boss_defeats[0] += 1
                 print("\nYou have defeated the boss. But he's The Rock, so he gets back up.\n")
                 print("\nThe boss stands before you for the ulimate rock paper scissors showdown!\n"
-                      "You must defeat him three times before you can advance.\n"
+                      "You must defeat him FIVE times before you can advance.\n"
                       "Choose your weapon to defeat the boss:\n"
                       "1. (R)ock\n"
                       "2. (P)aper\n"
@@ -246,7 +252,7 @@ def main():
 
         # is_boss_defeated = boss_combat(character, boss, attack_choice_for_boss)
         update_output_widget()
-        if boss_defeats[0] == 3:
+        if boss_defeats[0] == 5:
             print(f"Congratulations! You have defeated the boss.\n"
                   f"You are the RPS NINJA champion!\n"
                   f"🥷🏼🥷🏼🥷🏼 All other ninjas bow before you 🥷🏼🥷🏼🥷🏼")
