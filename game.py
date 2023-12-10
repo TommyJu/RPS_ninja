@@ -46,7 +46,7 @@ def main():
     character = make_character()
     enemies = make_enemy(board)
     vision_cones = make_vision_cones(enemies, board)
-    game_level = [2]
+    game_level = [1]
     level_up_pending = [False]
 
     # GUI
@@ -98,17 +98,17 @@ def main():
     level_widget.grid(row=1, column=0, sticky="nsew")
     level_widget.configure(font=("system", 24))
 
-    health_text_widget = tk.Label(canvas_right, text="Current HP:", background="white", fg="white", bg="black")
-    health_text_widget.grid(row=2, column=0, sticky="nsew")
-    health_text_widget.configure(font=("system", 12))
+    # health_text_widget = tk.Label(canvas_right, text="Current HP:", background="white", fg="white", bg="black")
+    # health_text_widget.grid(row=2, column=0, sticky="nsew")
+    # health_text_widget.configure(font=("system", 12))
+    #
+    # health_widget = ttk.Progressbar(canvas_right, length=200)
+    # health_widget["value"] = 100
+    # health_widget.grid(row=3, column=1, sticky="nsew")
 
-    health_widget = ttk.Progressbar(canvas_right, length=200)
-    health_widget["value"] = 100
-    health_widget.grid(row=3, column=1, sticky="nsew")
-
-    stat_widget = tk.Label(canvas_right, text="PLAYER ACTION: 10", background="white", fg="white", bg="black")
-    stat_widget.grid(row=4, column=0, sticky="nsew")
-    stat_widget.configure(font=("system", 12))
+    # stat_widget = tk.Label(canvas_right, text="PLAYER ACTION: 10", background="white", fg="white", bg="black")
+    # stat_widget.grid(row=4, column=0, sticky="nsew")
+    # stat_widget.configure(font=("system", 12))
 
     # output_string_variable = tk.StringVar()
     # output_widget = tk.Label(canvas_right, textvariable=output_string_variable, background="white", fg="white", bg="black")
@@ -139,7 +139,7 @@ def main():
     level_two_image_file = Image.open("./assets/fire_level_background.png")
     level_two_image = ImageTk.PhotoImage(level_two_image_file.resize((2000, 2000)))
     boss_level_image_file = Image.open("./assets/the_boss.jpg")
-    boss_level_image = ImageTk.PhotoImage(boss_level_image_file.resize((1400, 1000)))
+    boss_level_image = ImageTk.PhotoImage(boss_level_image_file.resize((500, 800)))
     end_point_image_file = Image.open("./assets/exit-door.png")
     end_point_image = ImageTk.PhotoImage(end_point_image_file.resize((30, 30)))
 
@@ -190,8 +190,14 @@ def main():
         # Scroll to the bottom of the text widget
         output_widget.see("end")
 
-    boss = make_boss()
+    # boss = make_boss()
+    boss_defeats = [0]
     def boss_game_instance():
+        # Game win
+        if boss_defeats[0] == 3:
+            root.destroy()
+            return
+
         user_input = input_widget_value.get()
         input_widget.delete(0, "end")
 
@@ -210,29 +216,47 @@ def main():
                       f"Your Max HP is: {character["Max HP"]}\n"
                       f"Your HP has been replenished\n")
                 update_output_widget()
-                return
 
         print("\nThe boss stands before you for the ulimate rock paper scissors showdown!\n"
+              "You must defeat him three times before you can advance.\n"
               "Choose your weapon to defeat the boss:\n"
               "1. (R)ock\n"
               "2. (P)aper\n"
               "3. (S)cissors\n")
+        update_output_widget()
 
         # Grab user input and break out of game instance if invalid
         attack_choice_for_boss = get_choice_combat(user_input)
         if attack_choice_for_boss == None:
             return
+        else:
+            is_combat_won = engage_combat(character, attack_choice_for_boss)
+            update_output_widget()
 
-        is_boss_defeated = boss_combat(character, boss, attack_choice_for_boss)
+            if is_combat_won:
+                boss_defeats[0] += 1
+                print("\nYou have defeated the boss. But he's The Rock, so he gets back up.\n")
+                print("\nThe boss stands before you for the ulimate rock paper scissors showdown!\n"
+                      "You must defeat him three times before you can advance.\n"
+                      "Choose your weapon to defeat the boss:\n"
+                      "1. (R)ock\n"
+                      "2. (P)aper\n"
+                      "3. (S)cissors\n")
+                update_output_widget()
+
+        # is_boss_defeated = boss_combat(character, boss, attack_choice_for_boss)
         update_output_widget()
-        if is_boss_defeated:
+        if boss_defeats[0] == 3:
             print(f"Congratulations! You have defeated the boss.\n"
                   f"You are the RPS NINJA champion!\n"
                   f"🥷🏼🥷🏼🥷🏼 All other ninjas bow before you 🥷🏼🥷🏼🥷🏼")
-            boss_enter_widget.destroy()
+            update_output_widget()
 
-    boss_enter_widget = ttk.Button(canvas_right, text="ENTER", command=boss_game_instance)
+
     def generate_boss_level():
+        level_widget.configure(text="FINAL BOSS!!!")
+        ninja_widget.destroy()
+        enter_widget.destroy()
         # Clear widgets and data for enemies and vision cones
         enemies.clear()
         vision_cones.clear()
@@ -246,13 +270,11 @@ def main():
 
         for frame_widget in frame_widgets:
             frame_widget.destroy()
-        canvas.create_image(0, 0, image=boss_level_image)
+        canvas.create_image(200, 300, image=boss_level_image)
         level_up_pending[0] = True
 
-        # Make a new entry widget that calls the boss game instance instead of game instance
         # The enter widget initiates a game instance on click
-        enter_widget.destroy()
-
+        boss_enter_widget = ttk.Button(canvas_right, text="ENTER", command=boss_game_instance)
         boss_enter_widget.grid(row=8, column=0, sticky="nsew")
         root.bind('<Return>', lambda e: boss_enter_widget.invoke())
 
@@ -261,6 +283,7 @@ def main():
 
 
     def generate_level_2():
+            level_widget.configure(text="LEVEL 2")
         # Clear widgets and data for enemies and vision cones
             enemies.clear()
             vision_cones.clear()

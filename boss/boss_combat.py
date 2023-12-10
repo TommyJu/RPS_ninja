@@ -75,7 +75,7 @@ def timer(function):
     """
 
     def wrapper_timer(*args, **kwargs):
-        input('entering quick time event\n press enter to start')
+        # input('entering quick time event\n press enter to start')
         start_time = time.perf_counter()
         quick_time_input = function(*args, **kwargs)
         end_time = time.perf_counter()

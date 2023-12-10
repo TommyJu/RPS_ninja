@@ -36,7 +36,7 @@ def timer(function):
     """
 
     def wrapper_timer(*args, **kwargs):
-        input('entering quick time event\n press enter to start')
+        # input('entering quick time event\n press enter to start')
         start_time = time.perf_counter()
         quick_time_input = function(*args, **kwargs)
         end_time = time.perf_counter()
@@ -62,16 +62,19 @@ def quick_time_event():
     dodge = random.choice(['left', 'right', 'crouch', 'jump'])
     match dodge:
         case 'left':
-            user_input = input('on you left!\n(type left)\n')
+            # user_input = input('on you left!\n(type left)\n')
+            print('on you left!\n(type left)\n')
             return 'left' == user_input
         case 'right':
-            user_input = input('on your right!\n(type right)\n')
+            # user_input = input('on your right!\n(type right)\n')
+            print('on your right!\n(type right)\n')
             return 'right' == user_input
         case 'jump':
-            user_inpt = input('watch out below!\n(type jump)\n')
-            return 'jump' == user_inpt
+            # user_input = input('watch out below!\n(type jump)\n')
+            print('watch out below!\n(type jump)\n')
+            return 'jump' == user_input
         case 'crouch':
-            user_input = input('watch out above!\n(type crouch)\n')
+            print('watch out above!\n(type crouch)\n')
             return 'crouch' == user_input
 
 
