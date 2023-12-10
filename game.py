@@ -59,6 +59,7 @@ def main():
     canvas = tk.Canvas(root)
     canvas.grid(row=0, column=0, sticky="nsew")
 
+    frame_widgets = []
     # Configure a grid and add data to cells
     for row in range(rows):
         # Configure even rows
@@ -69,6 +70,8 @@ def main():
             # Add the frame container widget to each cell to create border effect
             frame = tk.Frame(canvas, background="green", borderwidth=3, relief="raised")
             frame.grid(row=row, column=column, sticky="nsew", padx=2, pady=2)
+            # For use later when changing color of the game board cells
+            frame_widgets.append(frame)
 
     # The column on the right will have 9 rows for each widget
     canvas_right = tk.Canvas(root, bg="black")
@@ -190,6 +193,10 @@ def main():
             enemies.extend(make_enemy(board))
             vision_cones.extend(make_vision_cones(enemies, board))
             canvas.create_image(0, 0, image=level_two_image)
+            # Change color of game board cells
+            for frame_widget in frame_widgets:
+                frame_widget.configure(background="azure")
+            # Generate new enemies
             for index in range(len(enemies)):
                 enemy_widget = tk.Label(canvas, image=level_two_enemy_image, background="white")
                 enemy_widget.lift()
@@ -207,7 +214,6 @@ def main():
 
 
     def game_instance():
-
         # Get user input, then clear entry widget
         user_input = input_widget_value.get()
         input_widget.delete(0, "end")

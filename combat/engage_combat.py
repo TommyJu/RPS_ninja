@@ -38,6 +38,10 @@ def engage_combat(character: dict, attack_choice: str):
         print("you used " + str(player_action[0]) + " with power " + str(player_action[1]))
         enemy_action = random_enemy_action()
         print("enemy used " + str(enemy_action[0]) + " with power " + str(enemy_action[1]))
+        print("\nAn enemy has spotted you! Choose your weapon to defeat the enemy:\n"
+              "1. (R)ock\n"
+              "2. (P)aper\n"
+              "3. (S)cissors\n")
         if does_player_win(player_action, enemy_action):
             print("you won")
             return True
