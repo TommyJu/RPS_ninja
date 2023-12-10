@@ -24,8 +24,8 @@ from movement.validate_move import validate_move
 from combat.get_choice_combat import get_choice_combat
 from character.level_up import level_up
 from character.restore_hp import restore_hp
-from boss.make_boss import make_boss
-from boss.boss_combat import boss_combat
+# from boss.make_boss import make_boss
+# from boss.boss_combat import boss_combat
 
 
 
