@@ -13,9 +13,7 @@ def enemy_detection(character, enemies, vision_cones):
 
     :param character: dictionary representing the user's character
     :param enemies: list of lists representing coordinates of enemies
-    :param enemy_widgets: a list of Tkinter labels for enemies
     :param vision_cones: list of lists or none representing coordinates of vision cones
-    :param vision_cone_widgets: a list of Tkinter labels for enemy vision cones
     :precondition: character is a dictionary with key "Current HP" with values being integer
                    character "Current HP" value is greater than 0 at beginning of engage combat
                    enemy_coordinates list of list representing the enemy current location
