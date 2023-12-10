@@ -118,10 +118,14 @@ def main():
     ninja_image = ImageTk.PhotoImage(ninja_image_file.resize((30, 30)))
     enemy_image_file = Image.open("./assets/oni.png")
     enemy_image = ImageTk.PhotoImage(enemy_image_file.resize((30, 30)))
+    level_two_enemy_image_file = Image.open("./assets/robe.png")
+    level_two_enemy_image = ImageTk.PhotoImage(level_two_enemy_image_file.resize((30, 30)))
     vision_cone_image_file = Image.open("./assets/eye-target.png")
     vision_cone_image = ImageTk.PhotoImage(vision_cone_image_file.resize((30, 30)))
     level_one_image_file = Image.open("./assets/forest_level_background.jpeg")
     level_one_image = ImageTk.PhotoImage(level_one_image_file.resize((2000, 2000)))
+    level_two_image_file = Image.open("./assets/fire_level_background.png")
+    level_two_image = ImageTk.PhotoImage(level_two_image_file.resize((2000, 2000)))
     end_point_image_file = Image.open("./assets/exit-door.png")
     end_point_image = ImageTk.PhotoImage(end_point_image_file.resize((30, 30)))
 
@@ -148,7 +152,6 @@ def main():
     canvas.create_image(0, 0, image=level_one_image)
 
     def update_widgets(user_interface_data):
-        canvas.create_image(0, 0, image=level_one_image)
         ninja_widget.grid(row=user_interface_data["character"][1], column=user_interface_data["character"][0])
         for index in range(len(vision_cones)):
             if vision_cones[index] == None:
@@ -174,6 +177,7 @@ def main():
         output_widget.see("end")
 
     def generate_level_2():
+        # Clear widgets and data for enemies and vision cones
             enemies.clear()
             vision_cones.clear()
             for enemy_widget, vision_cone_widget in zip(enemy_widgets, vision_cone_widgets):
@@ -185,9 +189,9 @@ def main():
             # Create new widgets
             enemies.extend(make_enemy(board))
             vision_cones.extend(make_vision_cones(enemies, board))
-
+            canvas.create_image(0, 0, image=level_two_image)
             for index in range(len(enemies)):
-                enemy_widget = tk.Label(canvas, image=enemy_image, background="white")
+                enemy_widget = tk.Label(canvas, image=level_two_enemy_image, background="white")
                 enemy_widget.lift()
                 enemy_widgets.append(enemy_widget)
             for index in range(len(vision_cones)):

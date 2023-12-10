@@ -17,7 +17,7 @@ def random_enemy_action():
     :postcondition:enemy action is randomly determined
     :return: tuple representing the action of enemy
     """
-    style_choice = random.choice(['rock', 'paper', 'scissor'])
+    style_choice = random.choice(['rock', 'paper', 'scissors'])
     power = random.randint(0, 10)
     enemy_tuple = (style_choice, power)
     return enemy_tuple
