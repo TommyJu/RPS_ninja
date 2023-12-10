@@ -50,8 +50,8 @@ def main():
     level_up_pending = [False]
 
     # GUI
-    GUI_HEIGHT = 600
-    GUI_WIDTH = 1000
+    GUI_HEIGHT = 800
+    GUI_WIDTH = 1400
     CELL_SIZE = 50
 
     # Configure the root window
