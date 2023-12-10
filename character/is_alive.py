@@ -10,7 +10,7 @@ def is_alive(character):
     """
     determine if character is still alive with hp > 0
 
-    :param character: dictionary representing user character with key "Current HP" and an integer value
+    :param character: dictionary representing character with key "Current HP" and an integer value
     :precondition: dictionary for character has key "Current HP"
                    "Current HP" key has value that is an integer
     :postcondition: correctly determines if character is still alive
