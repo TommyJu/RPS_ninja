@@ -74,7 +74,7 @@ def main():
     canvas_right = tk.Canvas(root, bg="black")
     canvas_right.grid(row=0, column=1, sticky="nsew")
     canvas_right.grid_columnconfigure(0)
-    for row in range(8):
+    for row in range(9):
         canvas_right.grid_rowconfigure(row)
 
     title_widget = tk.Label(canvas_right, text="RPS NINJA", background="white", fg="white", bg="black", font="40")
@@ -97,17 +97,20 @@ def main():
     stat_widget.grid(row=4, column=0, sticky="nsew")
     stat_widget.configure(font=("system", 12))
 
-    output_string_variable = tk.StringVar()
-    output_widget = tk.Label(canvas_right, textvariable=output_string_variable, background="white", fg="white", bg="black")
+    # output_string_variable = tk.StringVar()
+    # output_widget = tk.Label(canvas_right, textvariable=output_string_variable, background="white", fg="white", bg="black")
+    output_widget = tk.Text(canvas_right, background="black", foreground="white")
     output_widget.grid(row=5, column=0, sticky="nsew")
     output_widget.configure(font=("system", 12))
 
+    scroll_widget = tk.Scrollbar(canvas_right, command=output_widget.yview)
+    scroll_widget.grid(row=6, column=0, sticky="nsew")
+    output_widget["yscrollcommand"] = scroll_widget.set
+
     input_widget_value = tk.StringVar()
     input_widget = ttk.Entry(canvas_right, textvariable=input_widget_value)
-    input_widget.grid(row=6, column=0, sticky="nsew")
+    input_widget.grid(row=7, column=0, sticky="nsew")
 
-    combat_buttons_container = tk.Frame(canvas_right)
-    combat_buttons_container.grid(row=7, column=0, sticky="nsew")
 
     # Images
     ninja_image_file = Image.open("./assets/ninja-heroic-stance.png")
@@ -156,9 +159,19 @@ def main():
 
     update_widgets(data)
 
+
+    # assign the console output to buffer
+    sys.stdout = buffer = io.StringIO()
+
+    def update_output_widget():
+        # Set the system output to the output_widget after clearing with end-1c
+        output_widget.delete(1.0, "end")
+        output_widget.insert("end", buffer.getvalue())
+        # Scroll to the bottom of the text widget
+        output_widget.see("end")
+
     def game_instance():
-        # assign the console output to buffer
-        sys.stdout = buffer = io.StringIO()
+
         # Get user input, then clear entry widget
         user_input = input_widget_value.get()
         input_widget.delete(0, "end")
@@ -167,21 +180,14 @@ def main():
         enemy_detected_by_index = enemy_detection(character, enemies, vision_cones)
         # If there is an enemy present:
         if enemy_detected_by_index != None:
-            print("Choose your weapon to defeat the enemy\n"
-                  "1. (R)ock\n"
-                  "2. (P)aper\n"
-                  "3. (S)cissor\n")
-            # Set the system output to the output_widget
-            output_string_variable.set(buffer.getvalue())
             # validate attack input
             attack_choice = get_choice_combat(user_input)
+            update_output_widget()
             # None represents an invalid choice, exit the game instance
             if attack_choice == None:
                 return
             else:
                 is_combat_won = engage_combat(character, attack_choice)
-                # Set the system output to the output_widget
-                output_string_variable.set(buffer.getvalue())
                 # delete the enemy and update if player wins
                 if is_combat_won:
                     delete_enemy(enemies, enemy_widgets, vision_cones, vision_cone_widgets, enemy_detected_by_index)
@@ -197,7 +203,8 @@ def main():
         if not validate_move(board, character, direction):
             print("\nPlease enter a direction to move within the game board.\n"
                   "To move north: type 'north', 'w', or '1'\n"
-                  "hint: W, A, S, or D are valid inputs for direction")
+                  "hint: W, A, S, or D are valid inputs for direction\n")
+            update_output_widget()
             return
         move_character(character, direction)
 
@@ -219,8 +226,7 @@ def main():
                 vision_cone_widget.destroy()
             enemy_widgets.clear()
             vision_cone_widgets.clear()
-            print(enemies)
-            print(vision_cones)
+
             # Create new widgets
             enemies.extend(make_enemy(board))
             vision_cones.extend(make_vision_cones(enemies, board))
@@ -232,7 +238,6 @@ def main():
             for index in range(len(vision_cones)):
                 vision_cone_widget = tk.Label(canvas, image=vision_cone_image, background="white")
                 vision_cone_widgets.append(vision_cone_widget)
-            print(enemy_widgets)
 
             # Reset character position
             character["X-coordinate"] = 0
@@ -243,14 +248,21 @@ def main():
 
         elif not character_still_alive:
             print("Game end")
+            update_output_widget()
             return
 
         # Set the system output to the output_widget
-        output_string_variable.set(buffer.getvalue())
+        if enemy_detected_by_index != None:
+            print("Choose your weapon to defeat the enemy\n"
+                  "1. (R)ock\n"
+                  "2. (P)aper\n"
+                  "3. (S)cissor\n")
+
+        update_output_widget()
 
     # The enter widget initiates a game instance on click
     enter_widget = ttk.Button(canvas_right, text="ENTER", command=game_instance)
-    enter_widget.grid(row=7, column=0, sticky="nsew")
+    enter_widget.grid(row=8, column=0, sticky="nsew")
     root.bind('<Return>', lambda e: enter_widget.invoke())
 
 
