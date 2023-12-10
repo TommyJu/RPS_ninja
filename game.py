@@ -223,7 +223,7 @@ def main():
                       f"Your HP has been replenished\n")
                 update_output_widget()
 
-        print("\nThe boss stands before you for the ulimate rock paper scissors showdown!\n"
+        print("\nThe boss stands before you for the ultimate rock paper scissors showdown!\n"
               "You must defeat him FIVE times before you can advance.\n"
               "Choose your weapon to defeat the boss:\n"
               "1. (R)ock\n"
