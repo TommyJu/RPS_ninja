@@ -8,7 +8,13 @@ import random
 import time
 
 
-def timer(function):
+def timer(function) -> tuple:
+    """
+    measure input time and correctness
+
+    :param function: function to be timed
+    :return: tuple
+    """
     def wrapper_timer(*args, **kwargs):
         input('entering quick time event\n press enter to start')
         start_time = time.perf_counter()
@@ -27,9 +33,13 @@ def timer(function):
 
 def determine_damage(player_time: float) -> str:
     """
+    Determines the effect of player time
 
-    :param player_time:
-    :return:
+    :param player_time: floating point number representing how long it took for player to input
+    :precondition: player_time must be a floating point number
+                   function must be called in wrapper_timer
+                   correctly determine which string to returen based on time value of player_time
+    :return: string representing value of player_time
     """
     if player_time <= 1.0:
         return "counter"
@@ -42,7 +52,14 @@ def determine_damage(player_time: float) -> str:
 
 
 @timer
-def quick_time_event():
+def quick_time_event() -> bool:
+    """
+    Determine if user input is what the user was asked to type
+
+    :precondition: quick time event was initiated
+    :postcondition: correctly determines if user input is the equal to what was asked for
+    :return: Boolean where True if correct input otherwise false
+    """
     dodge = random.choice(['left', 'right', 'crouch', 'jump'])
     match dodge:
         case 'left':
