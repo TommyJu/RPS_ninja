@@ -83,5 +83,7 @@ You can scroll through the GUI's console to see past game history.
 >Thank you Chris for always going the extra mile. Comp 1510 is an amazing course, and I'm glad that I got to be a part of it.
 -Tommy
 
+>What he said^ but with a focus on the labs. They were fun and I used them to procrastinate other course work. -Matthew
+
 
 
