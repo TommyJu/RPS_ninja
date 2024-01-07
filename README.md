@@ -10,12 +10,6 @@
     <li>Matthew Yoon</li>
 </ul>
 
-<h3>Student numbers</h3>
-<ul>
-    <li>A01347715 (Tommy)</li>
-    <li>A01373290 (Matthew)</li>
-</ul>
-
 <h3>Student GitHub accounts</h3>
 <ul>
     <li><a href="https://github.com/TommyJu">TommyJu</a></li>
