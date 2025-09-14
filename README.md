@@ -16,6 +16,10 @@
     <li><a href="https://github.com/matthewy0987">matthewy0987</a></li>
 </ul>
 
+# Image Gallery
+![](preview-images/rps_ninja_level_1.png)
+![](preview-images/rps_ninja_level_2.png)
+
 | Requirments                           | Where in Code                      |
 |---------------------------------------|------------------------------------|
 | 1. main func game                     | game.py in /comp_1510_term_project |
